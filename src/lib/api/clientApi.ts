@@ -1,0 +1,52 @@
+import { nextServer } from "./api";
+import type { User } from "@/types/user";
+
+// ---------------------------- LOGIN ----------------------------
+export type LoginRequest = {
+  email: string;
+  password: string;
+};
+
+type LoginResponse = {
+  status: number;
+  message: string;
+  data: { user: { id: string; email: string } };
+};
+
+export const login = async (payload: LoginRequest): Promise<User> => {
+  const res = await nextServer.post<LoginResponse>("/auth/login", payload);
+  const { id, email } = res.data.data.user;
+  return { _id: id, email } as User;
+};
+
+// -------------------------- REGISTER ---------------------------
+export type RegisterRequest = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export const register = async (payload: RegisterRequest): Promise<User> => {
+  const res = await nextServer.post<User>("/auth/register", payload);
+  return res.data;
+};
+
+// --------------------------- LOGOUT ----------------------------
+export const logout = async (): Promise<void> => {
+  await nextServer.post("/auth/logout");
+};
+
+// ----------------------------- ME ------------------------------// Увага: роут на бекенді змонтований як /user (однина), не /users
+export const getMe = async (): Promise<User> => {
+  const { data } = await nextServer.get<User>("/user/me");
+  return data;
+};
+
+export const checkSession = async (): Promise<boolean> => {
+  try {
+    await getMe();
+    return true;
+  } catch {
+    return false;
+  }
+};

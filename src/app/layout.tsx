@@ -1,17 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header/Header";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import AuthHydrator from "@/components/providers/AuthHydrator";
 
 export const metadata: Metadata = {
   title: "Just TO DO It",
@@ -24,14 +14,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
+    <html lang="en" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
+        <AuthHydrator />
         <Header />
-        <main>{children}</main>
-        <footer>
+        <main className="flex-1">{children}</main>
+        <footer className="text-center text-xs text-slate-600 py-4">
           <p>
             Created <time dateTime="2026">2026</time>
           </p>
