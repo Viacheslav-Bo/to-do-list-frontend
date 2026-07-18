@@ -20,7 +20,7 @@ export default function Logout() {
 
   return (
     <main className="min-h-screen flex items-center justify-center text-slate-400">
-      <p>Виходимо з акаунту…</p>
+      <p>Signing out…</p>
     </main>
   );
 }

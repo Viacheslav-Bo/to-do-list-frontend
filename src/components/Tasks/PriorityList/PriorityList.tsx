@@ -11,7 +11,7 @@ export default function PriorityBadge({ priority }: Props) {
   return (
     <span
       className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${colorClass}`}
-      title={`Пріоритет: ${priority}/10`}
+      title={`Priority: ${priority}/10`}
     >
       P{priority}
     </span>

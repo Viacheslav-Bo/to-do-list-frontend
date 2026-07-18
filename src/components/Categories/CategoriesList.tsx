@@ -16,7 +16,7 @@ export default function CategoriesList({
   return (
     <div className="flex flex-wrap gap-1.5 pt-2">
       <span className="text-xs text-slate-500 self-center mr-1">
-        Категорії:
+        Categories:
       </span>
 
       <button
@@ -28,7 +28,7 @@ export default function CategoriesList({
           : "bg-slate-950 border-slate-800 text-slate-500 hover:border-slate-700"
         }`}
       >
-        Усі
+        All
       </button>
 
       {categories.map((category) => (
@@ -36,7 +36,7 @@ export default function CategoriesList({
           key={category}
           category={category}
           isSelected={selectedCategory === category}
-          onSelect={() => onSelect(category)}
+          onSelect={onSelect}
         />
       ))}
     </div>

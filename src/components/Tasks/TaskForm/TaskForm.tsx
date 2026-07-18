@@ -4,76 +4,43 @@ import { useState } from "react";
 import type { CreateTaskPayload } from "@/types/task";
 import Input from "@/components/ui/Input/Input";
 import Button from "@/components/ui/Button/Button";
+import CategorySelect from "@/components/Tasks/CategorySelect/CategorySelect";
 
 type Props = {
   onCreate: (payload: CreateTaskPayload) => Promise<void>;
-  existingCategories: string[];
 };
 
 const DEFAULT_CATEGORY = "Todo";
-const FALLBACK_CATEGORIES = ["Todo", "Work", "Personal", "Meeting", "Shopping"];
-const NEW_CATEGORY_VALUE = "__new__";
 
 const PRIORITY_OPTIONS = [
-  { value: 1, label: "1 — найнижчий" },
+  { value: 1, label: "1" },
   { value: 2, label: "2" },
   { value: 3, label: "3" },
-  { value: 4, label: "4 — низький" },
-  { value: 5, label: "5 — середній" },
+  { value: 4, label: "4" },
+  { value: 5, label: "5" },
   { value: 6, label: "6" },
-  { value: 7, label: "7 — високий" },
+  { value: 7, label: "7" },
   { value: 8, label: "8" },
   { value: 9, label: "9" },
-  { value: 10, label: "10 — найвищий" },
+  { value: 10, label: "10" },
 ];
 
-export default function TaskForm({ onCreate, existingCategories }: Props) {
-  const [customCategories, setCustomCategories] = useState<string[]>([]);
-  const categoryOptions = Array.from(
-    new Set([
-      ...FALLBACK_CATEGORIES,
-      ...existingCategories,
-      ...customCategories,
-    ]),
-  );
-
+export default function TaskForm({ onCreate }: Props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState(DEFAULT_CATEGORY);
-  const [isAddingCategory, setIsAddingCategory] = useState(false);
-  const [newCategoryInput, setNewCategoryInput] = useState("");
   const [priority, setPriority] = useState(5);
   const [dueDate, setDueDate] = useState("");
   const [isPrivate, setIsPrivate] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const handleCategorySelect = (value: string) => {
-    if (value === NEW_CATEGORY_VALUE) {
-      setIsAddingCategory(true);
-      setNewCategoryInput("");
-      return;
-    }
-    setCategory(value);
-  };
-
-  const confirmNewCategory = () => {
-    const trimmed = newCategoryInput.trim();
-    if (trimmed) {
-      setCustomCategories((prev) =>
-        prev.includes(trimmed) ? prev : [...prev, trimmed],
-      );
-      setCategory(trimmed);
-    }
-    setIsAddingCategory(false);
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
     if (title.trim().length < 5) {
-      setError("Назва повинна містити щонайменше 5 символів");
+      setError("Title must be at least 5 characters long");
       return;
     }
 
@@ -95,20 +62,17 @@ export default function TaskForm({ onCreate, existingCategories }: Props) {
       setDueDate("");
       setIsPrivate(false);
     } catch {
-      setError("Не вдалось створити таску. Спробуй ще раз.");
+      setError("Failed to create task. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col gap-3 p-4 bg-slate-900/40 border border-slate-800 rounded-xl"
-    >
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <Input
         id="task-title"
-        placeholder="Назва нової таски..."
+        placeholder="Task title..."
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         required
@@ -116,59 +80,26 @@ export default function TaskForm({ onCreate, existingCategories }: Props) {
 
       <textarea
         id="task-description"
-        placeholder="Опис (необов'язково)..."
+        placeholder="Description (optional)..."
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         rows={2}
         className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none"
       />
 
-      <div className="flex flex-wrap items-end gap-3">
+      <div className="grid grid-cols-2 gap-3">
         <div className="flex flex-col gap-1.5">
           <label
             htmlFor="task-category"
             className="text-sm font-medium text-slate-400"
           >
-            Категорія
+            Category
           </label>
-          {isAddingCategory ?
-            <div className="flex gap-1">
-              <input
-                autoFocus
-                value={newCategoryInput}
-                onChange={(e) => setNewCategoryInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    confirmNewCategory();
-                  }
-                  if (e.key === "Escape") setIsAddingCategory(false);
-                }}
-                placeholder="Нова категорія..."
-                className="w-32 px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500"
-              />
-              <button
-                type="button"
-                onClick={confirmNewCategory}
-                className="px-2 rounded bg-emerald-600/80 hover:bg-emerald-500 text-white text-sm cursor-pointer"
-              >
-                ✓
-              </button>
-            </div>
-          : <select
-              id="task-category"
-              value={category}
-              onChange={(e) => handleCategorySelect(e.target.value)}
-              className="w-32 px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500"
-            >
-              {categoryOptions.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-              <option value={NEW_CATEGORY_VALUE}>+ Нова категорія</option>
-            </select>
-          }
+          <CategorySelect
+            id="task-category"
+            value={category}
+            onChange={setCategory}
+          />
         </div>
 
         <div className="flex flex-col gap-1.5">
@@ -176,13 +107,13 @@ export default function TaskForm({ onCreate, existingCategories }: Props) {
             htmlFor="task-priority"
             className="text-sm font-medium text-slate-400"
           >
-            Пріоритет
+            Priority
           </label>
           <select
             id="task-priority"
             value={priority}
             onChange={(e) => setPriority(Number(e.target.value))}
-            className="px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500"
+            className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500"
           >
             {PRIORITY_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -191,27 +122,26 @@ export default function TaskForm({ onCreate, existingCategories }: Props) {
             ))}
           </select>
         </div>
+      </div>
 
+      <div className="flex items-end gap-3">
         <Input
           id="task-due-date"
           type="date"
-          label="Дедлайн"
+          label="Deadline"
           value={dueDate}
           onChange={(e) => setDueDate(e.target.value)}
+          className="flex-1"
         />
 
-        <label className="flex items-center gap-2 text-sm text-slate-400 pb-2 cursor-pointer">
+        <label className="flex items-center gap-2 text-sm text-slate-400 pb-2 cursor-pointer shrink-0">
           <input
             type="checkbox"
             checked={isPrivate}
             onChange={(e) => setIsPrivate(e.target.checked)}
           />
-          Приватна
+          Private
         </label>
-
-        <Button type="submit" disabled={isSubmitting} className="ml-auto">
-          {isSubmitting ? "Додаємо..." : "+ Додати таску"}
-        </Button>
       </div>
 
       {error && (
@@ -219,6 +149,10 @@ export default function TaskForm({ onCreate, existingCategories }: Props) {
           {error}
         </p>
       )}
+
+      <Button type="submit" disabled={isSubmitting} className="w-full">
+        {isSubmitting ? "Adding..." : "+ Add Task"}
+      </Button>
     </form>
   );
 }

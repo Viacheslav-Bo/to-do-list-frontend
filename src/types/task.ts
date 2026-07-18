@@ -35,6 +35,9 @@ export type GetTasksParams = {
   limit?: number;
   search?: string;
   isCompleted?: boolean;
+  category?: string;
+  isPrivate?: boolean;
+  dueToday?: boolean;
   sortBy?: SortBy;
   sortOrder?: SortOrder;
 };

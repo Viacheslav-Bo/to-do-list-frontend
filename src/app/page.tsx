@@ -17,13 +17,13 @@ export default function Home() {
         It ⚡
       </h1>
       <p className="text-slate-400 max-w-md">
-        Простий і швидкий таск-менеджер: пошук, пріоритети, фільтри та дедлайни
-        — все, що треба, і нічого зайвого.
+        A simple fast task manager: search, priorities, filters, and deadlines
+        — everything you need, nothing extra.
       </p>
 
       <Link href={user ? "/tasks" : "/auth/register"}>
         <Button variant="primary" className="px-8 py-3 text-base">
-          {user ? "Перейти до тасок" : "Почати безкоштовно"}
+          {user ? "Go to tasks" : "Start for free"}
         </Button>
       </Link>
     </div>

@@ -10,7 +10,7 @@ export default function PrivacyToggle() {
     <button
       onClick={toggle}
       type="button"
-      title="Розмивати приватні таски у списку"
+      title="Blur private tasks in the list"
       className={`cursor-pointer flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-medium transition-all duration-200 ${
         isPrivacyModeOn
           ? 'bg-amber-500/10 border-amber-500/30 text-amber-400'

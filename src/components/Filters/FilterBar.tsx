@@ -50,7 +50,7 @@ export default function FilterBar({
       <input
         value={localSearch}
         onChange={(e) => handleSearchInput(e.target.value)}
-        placeholder="Пошук за назвою..."
+        placeholder="Search by title..."
         className="flex-1 min-w-[180px] px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500"
       />
 
@@ -59,9 +59,9 @@ export default function FilterBar({
         onChange={(e) => onStatusChange(e.target.value as StatusFilter)}
         className="px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500"
       >
-        <option value="all">Усі</option>
-        <option value="undone">Не виконані</option>
-        <option value="done">Виконані</option>
+        <option value="all">All</option>
+        <option value="undone">Incomplete</option>
+        <option value="done">Completed</option>
       </select>
 
       <select
@@ -69,18 +69,18 @@ export default function FilterBar({
         onChange={(e) => onSortByChange(e.target.value as SortBy)}
         className="px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500"
       >
-        <option value="priority">За пріоритетом</option>
-        <option value="createdAt">За датою створення</option>
-        <option value="dueDate">За дедлайном</option>
+        <option value="priority">By priority</option>
+        <option value="createdAt">By creation date</option>
+        <option value="dueDate">By deadline</option>
       </select>
 
       <button
         type="button"
         onClick={() => onSortOrderChange(sortOrder === "asc" ? "desc" : "asc")}
-        title="Змінити напрямок сортування"
+        title="Switch sort direction"
         className="px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-300 hover:border-slate-700 cursor-pointer"
       >
-        {sortOrder === "asc" ? "↑ Зростання" : "↓ Спадання"}
+        {sortOrder === "asc" ? "↑ Ascending" : "↓ Descending"}
       </button>
     </div>
   );

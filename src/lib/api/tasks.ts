@@ -18,6 +18,11 @@ export const getTasks = async (
       ...(params.isCompleted !== undefined ?
         { isCompleted: params.isCompleted }
       : {}),
+      ...(params.category ? { category: params.category } : {}),
+      ...(params.isPrivate !== undefined ?
+        { isPrivate: params.isPrivate }
+      : {}),
+      ...(params.dueToday !== undefined ? { dueToday: params.dueToday } : {}),
       ...(params.sortBy ? { sortBy: params.sortBy } : {}),
       ...(params.sortOrder ? { sortOrder: params.sortOrder } : {}),
     },
