@@ -31,7 +31,7 @@ export function useDashboardStats() {
           getTasks({ dueToday: true, isCompleted: false, limit: 5 }),
           getTasks({
             isCompleted: false,
-            limit: 20,
+            limit: 100,
             sortBy: "dueDate",
             sortOrder: "asc",
           }),

@@ -32,6 +32,7 @@ export const getTasks = async (
 
 export const createTask = async (payload: CreateTaskPayload): Promise<Task> => {
   const res = await nextServer.post<{ data: Task }>("/tasks", payload);
+
   return res.data.data;
 };
 

@@ -7,7 +7,6 @@ import type {
   SortOrder,
   StatusFilter,
 } from "@/types/task";
-import { useCategoriesOverview } from "@/hooks/tasks/useTasksOverview";
 import { useCreateTask } from "@/hooks/tasks/useTaskMutations";
 import FilterBar from "@/components/Filters/FilterBar";
 import TaskForm from "@/components/Tasks/TaskForm/TaskForm";
@@ -23,6 +22,7 @@ type Props = {
   onSortByChange: (value: SortBy) => void;
   sortOrder: SortOrder;
   onSortOrderChange: (value: SortOrder) => void;
+  onReset: () => void;
 };
 
 export default function TasksToolbar({
@@ -34,6 +34,7 @@ export default function TasksToolbar({
   onSortByChange,
   sortOrder,
   onSortOrderChange,
+  onReset,
 }: Props) {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
@@ -65,9 +66,13 @@ export default function TasksToolbar({
             onSortByChange={onSortByChange}
             sortOrder={sortOrder}
             onSortOrderChange={onSortOrderChange}
+            onReset={onReset}
           />
         </div>
-        <Button onClick={() => setIsCreateModalOpen(true)} className="shrink-0">
+        <Button
+          onClick={() => setIsCreateModalOpen(true)}
+          className="h-11 px-5 shrink-0"
+        >
           + Нова таска
         </Button>
       </div>

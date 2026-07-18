@@ -1,11 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import confetti from "canvas-confetti";
-import type { SortBy, SortOrder } from "@/types/task";
-import { useTaskFiltersStore } from "@/lib/store/taskFiltersStore";
+import type { SortBy, SortOrder, StatusFilter } from "@/types/task";
 import { useTasksQuery } from "@/hooks/tasks/useTasksQuery";
-import { useCategoriesOverview } from "@/hooks/tasks/useTasksOverview";
+import { TASK_CATEGORIES } from "@/constants/categories";
 import {
   useUpdateTask,
   useDeleteTask,
@@ -15,20 +14,12 @@ import TasksToolbar from "@/components/Tasks/TasksToolbar/TasksToolbar";
 import TasksList from "@/components/Tasks/TasksList/TasksList";
 import TasksPagination from "@/components/Tasks/TasksPagination/TasksPagination";
 import CategoriesList from "@/components/Categories/CategoriesList";
+import ProgressSection from "@/components/Tasks/ProgressSection/ProgressSection";
 
 export default function TasksPage() {
-  const status = useTaskFiltersStore((state) => state.status);
-  const setStatus = useTaskFiltersStore((state) => state.setStatus);
-  const selectedCategory = useTaskFiltersStore(
-    (state) => state.selectedCategory,
-  );
-  const setSelectedCategory = useTaskFiltersStore(
-    (state) => state.setSelectedCategory,
-  );
-  const dueTodayOnly = useTaskFiltersStore((state) => state.dueTodayOnly);
-  const privateOnly = useTaskFiltersStore((state) => state.privateOnly);
-
   const [search, setSearch] = useState("");
+  const [status, setStatus] = useState<StatusFilter>("all");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<SortBy>("priority");
   const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
   const [page, setPage] = useState(1);
@@ -41,13 +32,9 @@ export default function TasksPage() {
     search: search || undefined,
     isCompleted: isCompletedParam,
     category: selectedCategory ?? undefined,
-    isPrivate: privateOnly ? true : undefined,
-    dueToday: dueTodayOnly ? true : undefined,
     sortBy,
     sortOrder,
   });
-
-  const { data: overview } = useCategoriesOverview();
 
   const updateTask = useUpdateTask();
   const deleteTask = useDeleteTask();
@@ -56,12 +43,10 @@ export default function TasksPage() {
   const tasks = data?.items ?? [];
   const totalPages = data?.totalPages ?? 1;
 
-  const filterKey = `${search}|${isCompletedParam}|${selectedCategory}|${dueTodayOnly}|${privateOnly}|${sortBy}|${sortOrder}`;
-  const [prevFilterKey, setPrevFilterKey] = useState(filterKey);
-  if (filterKey !== prevFilterKey) {
-    setPrevFilterKey(filterKey);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPage(1);
-  }
+  }, [search, isCompletedParam, selectedCategory, sortBy, sortOrder]);
 
   const handleToggleComplete = (task: {
     _id: string;
@@ -79,9 +64,19 @@ export default function TasksPage() {
     );
   };
 
+  const handleResetFilters = () => {
+    setSearch("");
+    setStatus("all");
+    setSelectedCategory(null);
+    setSortBy("priority");
+    setSortOrder("desc");
+  };
+
   return (
     <section className="max-w-5xl mx-auto px-4 py-10 flex flex-col gap-5">
       <h1 className="text-2xl font-bold text-slate-100">Мої таски</h1>
+
+      <ProgressSection />
 
       <TasksToolbar
         search={search}
@@ -92,10 +87,11 @@ export default function TasksPage() {
         onSortByChange={setSortBy}
         sortOrder={sortOrder}
         onSortOrderChange={setSortOrder}
+        onReset={handleResetFilters}
       />
 
       <CategoriesList
-        categories={overview?.categories ?? []}
+        categories={[...TASK_CATEGORIES]}
         selectedCategory={selectedCategory}
         onSelect={setSelectedCategory}
       />

@@ -5,25 +5,13 @@ import type { CreateTaskPayload } from "@/types/task";
 import Input from "@/components/ui/Input/Input";
 import Button from "@/components/ui/Button/Button";
 import CategorySelect from "@/components/Tasks/CategorySelect/CategorySelect";
+import PrioritySelect from "@/components/Tasks/PrioritySelect/PrioritySelect";
 
 type Props = {
   onCreate: (payload: CreateTaskPayload) => Promise<void>;
 };
 
 const DEFAULT_CATEGORY = "Todo";
-
-const PRIORITY_OPTIONS = [
-  { value: 1, label: "1" },
-  { value: 2, label: "2" },
-  { value: 3, label: "3" },
-  { value: 4, label: "4" },
-  { value: 5, label: "5" },
-  { value: 6, label: "6" },
-  { value: 7, label: "7" },
-  { value: 8, label: "8" },
-  { value: 9, label: "9" },
-  { value: 10, label: "10" },
-];
 
 export default function TaskForm({ onCreate }: Props) {
   const [title, setTitle] = useState("");
@@ -109,18 +97,11 @@ export default function TaskForm({ onCreate }: Props) {
           >
             Priority
           </label>
-          <select
+          <PrioritySelect
             id="task-priority"
             value={priority}
-            onChange={(e) => setPriority(Number(e.target.value))}
-            className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500"
-          >
-            {PRIORITY_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+            onChange={setPriority}
+          />
         </div>
       </div>
 

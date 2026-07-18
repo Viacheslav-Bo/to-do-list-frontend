@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
 import { logout } from "@/lib/api/clientApi";
+import UpcomingDeadlines from "@/components/Tasks/UpcomingDeadlines/UpcomingDeadlines";
+import PriorityBreakdown from "@/components/Tasks/PriorityBreakdown/PriorityBreakdown";
 
 export default function BurgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,7 +50,7 @@ export default function BurgerMenu() {
       <button
         type="button"
         onClick={() => setIsOpen((v) => !v)}
-        aria-label="Menu"
+        aria-label="Меню"
         aria-expanded={isOpen}
         className="flex flex-col justify-center gap-1.5 w-9 h-9 items-center cursor-pointer"
       >
@@ -64,7 +66,7 @@ export default function BurgerMenu() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-12 w-48 bg-slate-900 border border-slate-800 rounded-xl shadow-xl p-2 flex flex-col gap-1 z-50">
+        <div className="absolute right-0 top-12 w-72 max-h-[80vh] overflow-y-auto bg-slate-900 border border-slate-800 rounded-xl shadow-xl p-3 flex flex-col gap-1 z-50">
           <Link
             href="/"
             onClick={() => setIsOpen(false)}
@@ -80,11 +82,17 @@ export default function BurgerMenu() {
                 onClick={() => setIsOpen(false)}
                 className="px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800/60"
               >
-                📋 My tasks
+                📋 Мої таски
               </Link>
+
+              <div className="pt-2 mt-1 border-t border-slate-800 flex flex-col gap-3 px-1">
+                <UpcomingDeadlines />
+                <PriorityBreakdown />
+              </div>
+
               <button
                 onClick={handleLogout}
-                className="px-3 py-2 rounded-lg text-sm text-left text-rose-400 hover:bg-slate-800/60 cursor-pointer"
+                className="mt-2 px-3 py-2 rounded-lg text-sm text-left text-rose-400 hover:bg-slate-800/60 cursor-pointer border-t border-slate-800 pt-3"
               >
                 Log out
               </button>
