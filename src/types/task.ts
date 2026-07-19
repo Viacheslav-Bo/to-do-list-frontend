@@ -1,5 +1,3 @@
-export type Category = "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";
-
 export type Task = {
   _id: string;
   userId: string;
@@ -28,7 +26,6 @@ export type UpdateTaskPayload = Partial<CreateTaskPayload>;
 
 export type SortBy = "priority" | "createdAt" | "dueDate";
 export type SortOrder = "asc" | "desc";
-export type StatusFilter = "all" | "done" | "undone";
 
 export type GetTasksParams = {
   page?: number;

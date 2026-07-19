@@ -5,6 +5,7 @@ import type { CreateTaskPayload } from "@/types/task";
 import Input from "@/components/ui/Input/Input";
 import Button from "@/components/ui/Button/Button";
 import TaskFieldsGroup from "@/components/Tasks/TaskFieldsGroup/TaskFieldsGroup";
+import Textarea from "@/components/ui/Textarea/Textarea";
 
 type Props = {
   onCreate: (payload: CreateTaskPayload) => Promise<void>;
@@ -65,13 +66,12 @@ export default function TaskForm({ onCreate }: Props) {
         required
       />
 
-      <textarea
+      <Textarea
         id="task-description"
         placeholder="Description (optional)..."
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        rows={2}
-        className="w-full resize-none rounded border border-slate-800 bg-slate-950 px-3 py-2 text-[clamp(0.8rem,2.2vw,0.9rem)] text-slate-200 focus:border-blue-500 focus:outline-none sm:px-3.5 sm:py-2.5"
+        rows={5}
       />
 
       <TaskFieldsGroup

@@ -22,7 +22,7 @@ export default function TasksPagination({
       >
         ←
       </Button>
-      <span className="text-[clamp(0.8rem,2.2vw,0.875rem)] text-slate-400">
+      <span className="text-[clamp(0.8rem,2.2vw,0.875rem)] text-[var(--color-text-secondary)]">
         {page} / {totalPages}
       </span>
       <Button

@@ -3,6 +3,7 @@
 import CategorySelect from "@/components/Tasks/CategorySelect/CategorySelect";
 import PrioritySelect from "@/components/Tasks/PrioritySelect/PrioritySelect";
 import Input from "@/components/ui/Input/Input";
+import { FIELD_LABEL_CLASSNAME } from "@/constants/inputs";
 
 type Props = {
   idPrefix?: string;
@@ -33,7 +34,7 @@ export default function TaskFieldsGroup({
         <div className="flex flex-col gap-1.5">
           <label
             htmlFor={`${idPrefix}-category`}
-            className="text-[clamp(0.8rem,2.2vw,0.875rem)] font-medium text-slate-400"
+            className={FIELD_LABEL_CLASSNAME}
           >
             Category
           </label>
@@ -56,7 +57,7 @@ export default function TaskFieldsGroup({
       <div className="flex flex-col gap-1.5">
         <label
           htmlFor={`${idPrefix}-priority`}
-          className="text-[clamp(0.8rem,2.2vw,0.875rem)] font-medium text-slate-400"
+          className={FIELD_LABEL_CLASSNAME}
         >
           Priority
         </label>
@@ -67,7 +68,7 @@ export default function TaskFieldsGroup({
         />
       </div>
 
-      <label className="flex items-center gap-2 cursor-pointer border-t border-slate-800 pt-3 text-[clamp(0.8rem,2.2vw,0.875rem)] text-slate-400">
+      <label className="flex items-center gap-2 cursor-pointer border-t border-[var(--color-border)] pt-3 text-[clamp(0.8rem,2.2vw,0.875rem)] text-[var(--color-text-secondary)]">
         <input
           type="checkbox"
           checked={isPrivate}

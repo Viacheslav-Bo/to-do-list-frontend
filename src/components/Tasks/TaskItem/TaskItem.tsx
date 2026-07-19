@@ -11,8 +11,9 @@ import TaskFieldsGroup from "@/components/Tasks/TaskFieldsGroup/TaskFieldsGroup"
 import PriorityBadge from "@/components/ui/Badges/PriorityBadge";
 import StatusBadge from "@/components/ui/Badges/StatusBadge";
 import CategoryBadge from "@/components/ui/Badges/CategoryBadge";
+import Textarea from "@/components/ui/Textarea/Textarea";
 
-import { Shield } from "lucide-react";
+import { Shield, MoreVertical } from "lucide-react";
 
 type Props = {
   task: Task;
@@ -36,8 +37,8 @@ function getDueDateStatus(
 
   if (!dueDateStr) {
     return {
-      label: "No deadline",
-      color: "text-slate-400 bg-slate-800/50 border-slate-700/30",
+      label: "No date",
+      color: "text-sky-400 bg-sky-500/10 border-sky-500/20",
     };
   }
 
@@ -63,7 +64,8 @@ function getDueDateStatus(
   }
   return {
     label: `${diffDays} d`,
-    color: "text-slate-400 bg-slate-800/50 border-slate-700/30",
+    color:
+      "text-[var(--color-text-secondary)] bg-[var(--color-surface)] border-[var(--color-border-strong)]",
   };
 }
 
@@ -89,7 +91,7 @@ export default function TaskItem({
   const [editIsPrivate, setEditIsPrivate] = useState(task.isPrivate);
   const [editPriority, setEditPriority] = useState(task.priority);
 
-  const shouldBlur = task.isPrivate && isPrivacyModeOn;
+  const isLocked = task.isPrivate && isPrivacyModeOn;
   const dueStatus = getDueDateStatus(task.dueDate, task.isCompleted);
 
   const description = task.description ?? "";
@@ -142,11 +144,13 @@ export default function TaskItem({
 
   return (
     <div
-      className={`relative flex h-full flex-col gap-2.5 rounded-xl border bg-slate-700/40 p-3 backdrop-blur-md transition-all duration-300 sm:gap-3 sm:p-4 ${
+      className={`relative flex h-full flex-col gap-2.5 rounded-xl border bg-[var(--color-surface)] p-3 backdrop-blur-md transition-all duration-300 sm:gap-3 sm:p-4 ${
         task.isCompleted ? "opacity-50" : ""
-      } ${shouldBlur ? "border-amber-500/10" : "border-slate-800"}`}
+      } ${isLocked ? "border-amber-500/20" : "border-[var(--color-border)]"}`}
     >
-      <div className={shouldBlur ? "blur-sm transition-all" : ""}>
+      <div
+        className={isLocked ? "blur-sm pointer-events-none select-none" : ""}
+      >
         <div className="flex items-start justify-between gap-2 sm:gap-3">
           <div className="flex min-w-0 flex-wrap items-center gap-1.5 sm:gap-2">
             <PriorityBadge priority={task.priority} />
@@ -158,11 +162,11 @@ export default function TaskItem({
 
           <button
             onClick={openEdit}
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded text-slate-400 transition hover:bg-slate-800 hover:text-slate-200 sm:h-7 sm:w-7"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded text-[var(--color-text-secondary)] transition hover:bg-[var(--color-surface-solid)] hover:text-[var(--color-text-primary)] sm:h-7 sm:w-7"
             aria-label="Edit task"
             title="Edit task"
           >
-            ⋮
+            <MoreVertical size={16} />
           </button>
         </div>
 
@@ -177,8 +181,8 @@ export default function TaskItem({
           <h3
             className={`flex-1 break-words text-[clamp(0.875rem,2.2vw,0.95rem)] font-medium ${
               task.isCompleted ?
-                "line-through text-slate-500"
-              : "text-slate-100"
+                "line-through text-[var(--color-text-muted)]"
+              : "text-[var(--color-text-primary)]"
             }`}
           >
             {task.title}
@@ -186,7 +190,7 @@ export default function TaskItem({
         </div>
 
         {description && (
-          <div className="mt-3 ml-0 text-[clamp(0.75rem,2vw,0.8rem)] text-slate-400 sm:ml-8">
+          <div className="mt-3 ml-0 pr-8 text-[clamp(0.75rem,2vw,0.8rem)] text-[var(--color-text-secondary)] sm:ml-8">
             <p className="line-clamp-2 break-words">{description}</p>
 
             {isDescriptionTruncated && (
@@ -201,23 +205,21 @@ export default function TaskItem({
         )}
       </div>
 
-      <div className="mt-auto flex justify-end">
-        {task.isPrivate && (
-          <div
-            title="Private task"
-            className="flex h-7 w-7 items-center justify-center text-amber-400/60"
-          >
-            <Shield size={16} strokeWidth={1.5} />
-          </div>
-        )}
-      </div>
+      {task.isPrivate && (
+        <div
+          title="Private task"
+          className="absolute bottom-3 right-3 sm:right-4 flex h-8 w-8 items-center justify-center text-amber-400/60 sm:h-7 sm:w-7"
+        >
+          <Shield size={16} strokeWidth={1.5} />
+        </div>
+      )}
 
       <Modal
         isOpen={modalMode === "view"}
         onClose={closeModal}
         title={task.title}
       >
-        <p className="mb-4 whitespace-pre-wrap break-words text-[clamp(0.8rem,2.4vw,0.875rem)] text-slate-300">
+        <p className="mb-4 whitespace-pre-wrap break-words text-[clamp(0.8rem,2.4vw,0.875rem)] text-[var(--color-text-secondary)]">
           {task.description}
         </p>
         <div className="flex justify-end">
@@ -239,12 +241,11 @@ export default function TaskItem({
             placeholder="Title"
           />
 
-          <textarea
+          <Textarea
             value={editDescription}
             onChange={(e) => setEditDescription(e.target.value)}
             placeholder="Description (optional)..."
-            rows={3}
-            className="w-full resize-none rounded border border-slate-800 bg-slate-950 px-3 py-2 text-[clamp(0.8rem,2.2vw,0.9rem)] text-slate-200 focus:border-blue-500 focus:outline-none"
+            rows={5}
           />
 
           <TaskFieldsGroup
@@ -288,7 +289,7 @@ export default function TaskItem({
         onClose={() => setIsDeleteModalOpen(false)}
         title="Delete task?"
       >
-        <p className="mb-4 text-[clamp(0.8rem,2.4vw,0.875rem)] text-slate-400">
+        <p className="mb-4 text-[clamp(0.8rem,2.4vw,0.875rem)] text-[var(--color-text-secondary)]">
           Task «{task.title}» will be permanently deleted. This action cannot be
           undone.
         </p>

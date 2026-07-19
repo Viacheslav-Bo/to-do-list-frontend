@@ -15,7 +15,7 @@ export default function CategoriesList({
 
   return (
     <div className="flex flex-wrap items-center gap-1.5 pt-2">
-      <span className="mr-1 self-center text-[clamp(0.7rem,1.8vw,0.75rem)] text-slate-500">
+      <span className="mr-1 self-center text-[clamp(0.7rem,1.8vw,0.75rem)] text-[var(--color-text-muted)]">
         Categories:
       </span>
 
@@ -25,7 +25,7 @@ export default function CategoriesList({
         className={`rounded-full border px-3 py-1 text-[clamp(0.7rem,1.8vw,0.75rem)] font-bold transition-all cursor-pointer ${
           selectedCategory === null ?
             "bg-emerald-600/10 border-emerald-500/30 text-emerald-400"
-          : "bg-slate-950 border-slate-800 text-slate-500 hover:border-slate-700"
+          : "bg-[var(--color-surface-solid)] border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-border-strong)]"
         }`}
       >
         All

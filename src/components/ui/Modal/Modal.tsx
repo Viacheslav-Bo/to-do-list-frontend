@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { X } from "lucide-react";
 
 type Props = {
   isOpen: boolean;
@@ -42,20 +43,20 @@ export default function Modal({ isOpen, onClose, title, children }: Props) {
       onClick={onClose}
     >
       <div
-        className="relative max-h-[90vh] w-full max-w-md overflow-y-auto rounded-xl border border-slate-800 bg-slate-900 p-4 shadow-xl sm:p-6"
+        className="relative max-h-[90vh] w-full max-w-md overflow-visible rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-xl sm:p-6"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 cursor-pointer"
+          className="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-lg text-[var(--color-text-secondary)] transition-colors hover:bg-[var(--color-surface-solid)] hover:text-[var(--color-text-primary)]"
         >
-          ✕
+          <X size={18} strokeWidth={2} />
         </button>
 
         {title && (
-          <h2 className="mb-4 pr-6 text-[clamp(1rem,2.7vw,1.125rem)] font-semibold text-slate-100">
+          <h2 className="mb-4 pr-6 text-[clamp(1rem,2.7vw,1.125rem)] font-semibold text-[var(--color-text-primary)]">
             {title}
           </h2>
         )}

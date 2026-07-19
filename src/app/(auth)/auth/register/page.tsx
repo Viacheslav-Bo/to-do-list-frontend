@@ -32,12 +32,12 @@ const SignUp = () => {
   };
 
   return (
-    <main className="flex min-h-screen justify-center bg-[#0B0F19] px-3 py-20 sm:px-6 sm:py-24 lg:px-8">
+    <main className="flex min-h-screen justify-center bg-[var(--color-bg)] px-3 py-20 sm:px-6 sm:py-24 lg:px-8">
       <form
         action={handleSubmit}
-        className="flex h-fit w-full max-w-sm flex-col gap-4 rounded-xl border border-slate-800 bg-slate-700/40 p-4 shadow-sm sm:p-6"
+        className="flex h-fit w-full max-w-sm flex-col gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-sm sm:p-6"
       >
-        <h1 className="mb-2 text-[clamp(1.1rem,2.8vw,1.25rem)] font-semibold text-slate-100">
+        <h1 className="mb-2 text-[clamp(1.1rem,2.8vw,1.25rem)] font-semibold text-[var(--color-text-primary)]">
           Sign up
         </h1>
 
@@ -69,7 +69,7 @@ const SignUp = () => {
           </p>
         )}
 
-        <p className="text-center text-[clamp(0.8rem,2.2vw,0.875rem)] text-slate-500">
+        <p className="text-center text-[clamp(0.8rem,2.2vw,0.875rem)] text-[var(--color-text-muted)]">
           Already have an account?{" "}
           <a href="/auth/login" className="text-blue-400 hover:underline">
             Log in

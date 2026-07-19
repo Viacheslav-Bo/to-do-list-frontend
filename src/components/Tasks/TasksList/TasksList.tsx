@@ -11,7 +11,7 @@ type Props = {
 const TasksList = ({ tasks, onToggleComplete, onUpdate, onDelete }: Props) => {
   if (tasks.length === 0) {
     return (
-      <p className="py-10 text-center text-[clamp(0.875rem,2.2vw,0.95rem)] text-slate-500">
+      <p className="py-10 text-center text-[clamp(0.875rem,2.2vw,0.95rem)] text-[var(--color-text-muted)]">
         No tasks found. Add the first one above 👆
       </p>
     );

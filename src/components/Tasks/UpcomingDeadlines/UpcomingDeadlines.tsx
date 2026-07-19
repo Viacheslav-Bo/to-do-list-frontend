@@ -28,7 +28,7 @@ function getDeadlineColor(label: string, isOverdue: boolean) {
   if (isOverdue) return "text-rose-500 font-medium";
   if (label === "Today") return "text-emerald-400";
   if (label === "Tomorrow") return "text-blue-400";
-  return "text-slate-500";
+  return "text-[var(--color-text-muted)]";
 }
 
 export default function UpcomingDeadlines() {
@@ -37,12 +37,12 @@ export default function UpcomingDeadlines() {
 
   return (
     <div className="flex flex-col gap-2">
-      <span className="mb-2 block px-1 text-[clamp(0.7rem,2vw,0.75rem)] font-semibold uppercase tracking-wider text-slate-500 sm:mb-3">
+      <span className="mb-2 block px-1 text-[clamp(0.7rem,2vw,0.75rem)] font-semibold uppercase tracking-wider text-[var(--color-text-muted)] sm:mb-3">
         Upcoming deadlines
       </span>
 
       {deadlines.length === 0 ?
-        <p className="px-1 text-[clamp(0.75rem,2vw,0.8rem)] text-slate-600">
+        <p className="px-1 text-[clamp(0.75rem,2vw,0.8rem)] text-[var(--color-text-muted)]">
           No upcoming deadlines 🎉
         </p>
       : <ul className="flex flex-col gap-1.5">
@@ -54,7 +54,7 @@ export default function UpcomingDeadlines() {
                 className="flex items-center justify-between gap-2 px-1"
               >
                 <span
-                  className="min-w-0 flex-1 truncate text-[clamp(0.8rem,2.2vw,0.875rem)] text-slate-300"
+                  className="min-w-0 flex-1 truncate text-[clamp(0.8rem,2.2vw,0.875rem)] text-[var(--color-text-primary)]"
                   title={task.title}
                 >
                   {task.title}

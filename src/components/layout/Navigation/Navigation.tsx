@@ -12,7 +12,7 @@ import {
 
 function CountBadge({ value }: { value?: number }) {
   return (
-    <span className="flex h-5 w-8 shrink-0 items-center justify-center rounded-full bg-slate-900 text-[11px] font-medium text-slate-400">
+    <span className="flex h-5 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface-solid)] text-[11px] font-medium text-[var(--color-text-secondary)]">
       {value ?? "..."}
     </span>
   );
@@ -23,8 +23,10 @@ export default function Navigation() {
   const setView = useTasksViewStore((state) => state.setView);
   const { data: stats } = useTaskStats();
 
-  const activeClass = "bg-slate-800 text-white";
-  const idleClass = "text-slate-300 hover:bg-slate-800/50 hover:text-white";
+  const activeClass =
+    "bg-[var(--color-surface-solid)] text-[var(--color-text-primary)]";
+  const idleClass =
+    "text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)] hover:text-[var(--color-text-primary)]";
 
   const navItems = [
     {
@@ -32,31 +34,40 @@ export default function Navigation() {
       label: "All Tasks",
       icon: LayoutList,
       count: stats?.totalTasks,
+      color: "text-blue-400",
     },
-    { id: "active", label: "Active", icon: Zap, count: stats?.activeTasks },
+    {
+      id: "active",
+      label: "Active",
+      icon: Zap,
+      count: stats?.activeTasks,
+      color: "text-amber-400",
+    },
     {
       id: "today",
       label: "Today",
       icon: CalendarDays,
       count: stats?.dueTodayUndone,
+      color: "text-orange-400",
     },
     {
       id: "completed",
       label: "Completed",
       icon: CheckCircle2,
       count: stats?.completedTasks,
+      color: "text-emerald-400",
     },
     {
       id: "private",
       label: "Private",
       icon: Shield,
       count: stats?.privateTasks,
+      color: "text-violet-400",
     },
   ] as const;
-
   return (
     <section>
-      <h2 className="mb-3 text-[clamp(0.7rem,1.8vw,0.75rem)] font-semibold uppercase tracking-wider text-slate-500">
+      <h2 className="mb-3 text-[clamp(0.7rem,1.8vw,0.75rem)] font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
         Navigation
       </h2>
 
@@ -74,7 +85,9 @@ export default function Navigation() {
               <Icon
                 size={18}
                 className={
-                  view === item.id ? "text-blue-400" : "text-slate-500"
+                  view === item.id ?
+                    item.color
+                  : "text-[var(--color-text-muted)]"
                 }
               />
 

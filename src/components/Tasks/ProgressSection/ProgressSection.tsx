@@ -25,7 +25,7 @@ export default function ProgressSection() {
         : isTodayClear && !hasOverdue ?
           "border-emerald-500/30 bg-emerald-500/5 shadow-[0_0_25px_rgba(16,185,129,0.1)]"
         : hasNoTasksToday && !hasOverdue ? "border-blue-500/20 bg-blue-500/5"
-        : "border-slate-800/60 bg-slate-800/40"
+        : "border-[var(--color-border)] bg-[var(--color-surface)]"
       }`}
     >
       <div className="flex flex-col gap-2 text-[clamp(0.75rem,2.2vw,0.875rem)] sm:flex-row sm:items-center sm:justify-between sm:gap-2">
@@ -45,7 +45,10 @@ export default function ProgressSection() {
           <span className="flex items-center gap-1.5 break-words font-medium leading-relaxed text-rose-400 animate-pulse">
             ⚠️ You have overdue tasks! It is time to sort them out 📉
           </span>
-        : <span className="font-medium text-slate-400">Overall progress</span>}
+        : <span className="font-medium text-[var(--color-text-secondary)]">
+            Overall progress
+          </span>
+        }
 
         <span
           className={`self-start font-bold sm:self-auto ${
@@ -56,7 +59,7 @@ export default function ProgressSection() {
         </span>
       </div>
 
-      <div className="h-2.5 w-full overflow-hidden rounded-full border border-slate-800/40 bg-slate-950">
+      <div className="h-2.5 w-full overflow-hidden rounded-full border border-[var(--color-border)] bg-[var(--color-surface-solid)]">
         <div
           className={`h-full bg-gradient-to-r transition-all duration-500 ${
             progressPercentage === 100 ?

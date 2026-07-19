@@ -37,12 +37,3 @@ export const getMe = async (): Promise<User> => {
   const { data } = await nextServer.get<User>("/user/me");
   return data;
 };
-
-export const checkSession = async (): Promise<boolean> => {
-  try {
-    await getMe();
-    return true;
-  } catch {
-    return false;
-  }
-};

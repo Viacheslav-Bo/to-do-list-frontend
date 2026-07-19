@@ -16,14 +16,20 @@ import TasksPagination from "@/components/Tasks/TasksPagination/TasksPagination"
 import CategoriesList from "@/components/Categories/CategoriesList";
 import ProgressSection from "@/components/Tasks/ProgressSection/ProgressSection";
 import { useTasksViewStore } from "@/lib/store/tasksViewStore";
+import {
+  LayoutList,
+  Zap,
+  CalendarDays,
+  CheckCircle2,
+  Shield,
+} from "lucide-react";
 
 export default function TasksPage() {
   const [search, setSearch] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<SortBy>("priority");
   const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
   const [page, setPage] = useState(1);
-  const { view, setView } = useTasksViewStore();
+  const { view, setView, selectedCategory, setCategory } = useTasksViewStore();
 
   const isCompletedParam =
     view === "completed" ? true
@@ -71,25 +77,29 @@ export default function TasksPage() {
 
   const handleResetFilters = () => {
     setSearch("");
-    setSelectedCategory(null);
     setSortBy("priority");
     setSortOrder("desc");
     setView("all");
     setPage(1);
   };
 
-  const pageTitle = {
-    all: "📋 All Tasks",
-    active: "⏳ Active Tasks",
-    completed: "✅ Completed Tasks",
-    private: "🔒 Private Tasks",
-    today: "📅 Due Today",
+  const pageTitleConfig = {
+    all: { icon: LayoutList, label: "All Tasks", color: "text-blue-400" },
+    active: { icon: Zap, label: "Active Tasks", color: "text-amber-400" },
+    completed: {
+      icon: CheckCircle2,
+      label: "Completed Tasks",
+      color: "text-emerald-400",
+    },
+    private: { icon: Shield, label: "Private Tasks", color: "text-violet-400" },
+    today: { icon: CalendarDays, label: "Due Today", color: "text-orange-400" },
   }[view];
 
   return (
     <section className="mx-auto flex max-w-5xl flex-col gap-4 px-3 py-6 sm:gap-5 sm:px-4 sm:py-8 lg:px-5 lg:py-10 3xl:max-w-6xl">
-      <h1 className="text-[clamp(1.25rem,3vw,1.5rem)] font-bold text-slate-100">
-        {pageTitle}
+      <h1 className="flex items-center gap-2 text-[clamp(1.25rem,3vw,1.5rem)] font-bold text-[var(--color-text-primary)]">
+        <pageTitleConfig.icon size={24} className={pageTitleConfig.color} />
+        {pageTitleConfig.label}
       </h1>
 
       <ProgressSection />
@@ -107,7 +117,7 @@ export default function TasksPage() {
       <CategoriesList
         categories={[...TASK_CATEGORIES]}
         selectedCategory={selectedCategory}
-        onSelect={setSelectedCategory}
+        onSelect={setCategory}
       />
 
       {isError && (
@@ -118,7 +128,7 @@ export default function TasksPage() {
 
       {isLoading && tasks.length === 0 ?
         <div className="flex items-center justify-center py-16">
-          <div className="w-8 h-8 rounded-full border-2 border-slate-700 border-t-blue-500 animate-spin" />
+          <div className="w-8 h-8 rounded-full border-2 border-[var(--color-border)] border-t-blue-500 animate-spin" />
         </div>
       : <TasksList
           tasks={tasks}
