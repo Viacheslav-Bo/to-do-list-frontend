@@ -1,12 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type {
-  CreateTaskPayload,
-  SortBy,
-  SortOrder,
-  StatusFilter,
-} from "@/types/task";
+import type { CreateTaskPayload, SortBy, SortOrder } from "@/types/task";
 import { useCreateTask } from "@/hooks/tasks/useTaskMutations";
 import FilterBar from "@/components/Filters/FilterBar";
 import TaskForm from "@/components/Tasks/TaskForm/TaskForm";
@@ -16,8 +11,7 @@ import Button from "@/components/ui/Button/Button";
 type Props = {
   search: string;
   onSearchChange: (value: string) => void;
-  status: StatusFilter;
-  onStatusChange: (value: StatusFilter) => void;
+
   sortBy: SortBy;
   onSortByChange: (value: SortBy) => void;
   sortOrder: SortOrder;
@@ -28,8 +22,6 @@ type Props = {
 export default function TasksToolbar({
   search,
   onSearchChange,
-  status,
-  onStatusChange,
   sortBy,
   onSortByChange,
   sortOrder,
@@ -50,7 +42,7 @@ export default function TasksToolbar({
       <Modal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
-        title="Нова таска"
+        title="New task"
       >
         <TaskForm onCreate={handleCreate} />
       </Modal>
@@ -60,8 +52,6 @@ export default function TasksToolbar({
           <FilterBar
             search={search}
             onSearchChange={onSearchChange}
-            status={status}
-            onStatusChange={onStatusChange}
             sortBy={sortBy}
             onSortByChange={onSortByChange}
             sortOrder={sortOrder}
@@ -73,7 +63,7 @@ export default function TasksToolbar({
           onClick={() => setIsCreateModalOpen(true)}
           className="h-11 px-5 shrink-0"
         >
-          + Нова таска
+          + New task
         </Button>
       </div>
     </>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import confetti from "canvas-confetti";
-import type { SortBy, SortOrder, StatusFilter } from "@/types/task";
+import type { SortBy, SortOrder } from "@/types/task";
 import { useTasksQuery } from "@/hooks/tasks/useTasksQuery";
 import { TASK_CATEGORIES } from "@/constants/categories";
 import {
@@ -15,22 +15,28 @@ import TasksList from "@/components/Tasks/TasksList/TasksList";
 import TasksPagination from "@/components/Tasks/TasksPagination/TasksPagination";
 import CategoriesList from "@/components/Categories/CategoriesList";
 import ProgressSection from "@/components/Tasks/ProgressSection/ProgressSection";
+import { useTasksViewStore } from "@/lib/store/tasksViewStore";
 
 export default function TasksPage() {
   const [search, setSearch] = useState("");
-  const [status, setStatus] = useState<StatusFilter>("all");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<SortBy>("priority");
   const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
   const [page, setPage] = useState(1);
+  const { view, setView } = useTasksViewStore();
 
-  const isCompletedParam = status === "all" ? undefined : status === "done";
+  const isCompletedParam =
+    view === "completed" ? true
+    : view === "active" ? false
+    : undefined;
 
   const { data, isLoading, isError } = useTasksQuery({
     page,
     limit: 20,
     search: search || undefined,
     isCompleted: isCompletedParam,
+    isPrivate: view === "private" ? true : undefined,
+    dueToday: view === "today" ? true : undefined,
     category: selectedCategory ?? undefined,
     sortBy,
     sortOrder,
@@ -44,9 +50,9 @@ export default function TasksPage() {
   const totalPages = data?.totalPages ?? 1;
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setPage(1);
-  }, [search, isCompletedParam, selectedCategory, sortBy, sortOrder]);
+    const frame = window.requestAnimationFrame(() => setPage(1));
+    return () => window.cancelAnimationFrame(frame);
+  }, [search, isCompletedParam, selectedCategory, sortBy, sortOrder, view]);
 
   const handleToggleComplete = (task: {
     _id: string;
@@ -66,23 +72,30 @@ export default function TasksPage() {
 
   const handleResetFilters = () => {
     setSearch("");
-    setStatus("all");
     setSelectedCategory(null);
     setSortBy("priority");
     setSortOrder("desc");
+    setView("all");
+    setPage(1);
   };
+
+  const pageTitle = {
+    all: "📋 All Tasks",
+    active: "⏳ Active Tasks",
+    completed: "✅ Completed Tasks",
+    private: "🔒 Private Tasks",
+    today: "📅 Due Today",
+  }[view];
 
   return (
     <section className="max-w-5xl mx-auto px-4 py-10 flex flex-col gap-5">
-      <h1 className="text-2xl font-bold text-slate-100">Мої таски</h1>
+      <h1 className="text-2xl font-bold text-slate-100">{pageTitle}</h1>
 
       <ProgressSection />
 
       <TasksToolbar
         search={search}
         onSearchChange={setSearch}
-        status={status}
-        onStatusChange={setStatus}
         sortBy={sortBy}
         onSortByChange={setSortBy}
         sortOrder={sortOrder}
@@ -98,7 +111,7 @@ export default function TasksPage() {
 
       {isError && (
         <p className="text-sm text-rose-400 bg-rose-500/10 p-3 rounded border border-rose-500/20">
-          Не вдалось завантажити таски. Спробуй перезавантажити сторінку.
+          Failed to load tasks. Please try refreshing the page.
         </p>
       )}
 

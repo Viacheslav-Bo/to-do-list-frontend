@@ -31,24 +31,21 @@ export default function ProgressSection() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-sm">
         {totalTasks > 0 && progressPercentage === 100 ?
           <span className="text-emerald-400 font-bold flex items-center gap-1.5 animate-bounce">
-            🏆 Абсолютний тріумф! Усі завдання виконано! 🎉
+            🏆 Absolute victory! All tasks are completed! 🎉
           </span>
         : isTodayClear && !hasOverdue ?
           <span className="text-amber-400 font-semibold flex items-center gap-1.5">
-            🔥 План на сьогодні виконано! Ти вільний! 🌟
+            🔥 Your plan for today is done! You are free! 🌟
           </span>
         : hasNoTasksToday && !hasOverdue ?
           <span className="text-blue-400 font-medium flex items-center gap-1.5">
-            ✨ Новий день — чистий аркуш. Сплануй свої завдання! 🚀
+            ✨ A new day — a fresh start. Plan your tasks! 🚀
           </span>
         : hasOverdue ?
           <span className="text-rose-400 font-medium flex items-center gap-1.5 animate-pulse">
-            ⚠️ У тебе є протерміновані завдання! Потрібно розібратися 📉
+            ⚠️ You have overdue tasks! It is time to sort them out 📉
           </span>
-        : <span className="text-slate-400 font-medium">
-            Загальний прогрес виконання
-          </span>
-        }
+        : <span className="text-slate-400 font-medium">Overall progress</span>}
 
         <span className="font-bold text-emerald-400 self-end sm:self-auto">
           {progressPercentage}% ({completedTasks}/{totalTasks})

@@ -50,7 +50,7 @@ export default function BurgerMenu() {
       <button
         type="button"
         onClick={() => setIsOpen((v) => !v)}
-        aria-label="Меню"
+        aria-label="Menu"
         aria-expanded={isOpen}
         className="flex flex-col justify-center gap-1.5 w-9 h-9 items-center cursor-pointer"
       >
@@ -82,7 +82,7 @@ export default function BurgerMenu() {
                 onClick={() => setIsOpen(false)}
                 className="px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800/60"
               >
-                📋 Мої таски
+                📋 My tasks
               </Link>
 
               <div className="pt-2 mt-1 border-t border-slate-800 flex flex-col gap-3 px-1">

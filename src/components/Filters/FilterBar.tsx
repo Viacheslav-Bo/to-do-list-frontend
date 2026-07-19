@@ -1,13 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { SortBy, SortOrder, StatusFilter } from "@/types/task";
+import type { SortBy, SortOrder } from "@/types/task";
 
 type Props = {
   search: string;
   onSearchChange: (value: string) => void;
-  status: StatusFilter;
-  onStatusChange: (value: StatusFilter) => void;
   sortBy: SortBy;
   onSortByChange: (value: SortBy) => void;
   sortOrder: SortOrder;
@@ -20,8 +18,6 @@ const DEBOUNCE_MS = 400;
 export default function FilterBar({
   search,
   onSearchChange,
-  status,
-  onStatusChange,
   sortBy,
   onSortByChange,
   sortOrder,
@@ -31,8 +27,8 @@ export default function FilterBar({
   const [localSearch, setLocalSearch] = useState(search);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setLocalSearch(search);
+    const frame = window.requestAnimationFrame(() => setLocalSearch(search));
+    return () => window.cancelAnimationFrame(frame);
   }, [search]);
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -51,46 +47,36 @@ export default function FilterBar({
       <input
         value={localSearch}
         onChange={(e) => handleSearchInput(e.target.value)}
-        placeholder="Пошук за назвою..."
+        placeholder="Search by title..."
         className="flex-1 min-w-[180px] px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500"
       />
-
-      <select
-        value={status}
-        onChange={(e) => onStatusChange(e.target.value as StatusFilter)}
-        className="px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500"
-      >
-        <option value="all">Усі</option>
-        <option value="undone">Не виконані</option>
-        <option value="done">Виконані</option>
-      </select>
 
       <select
         value={sortBy}
         onChange={(e) => onSortByChange(e.target.value as SortBy)}
         className="px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500"
       >
-        <option value="priority">За пріоритетом</option>
-        <option value="createdAt">За датою створення</option>
-        <option value="dueDate">За дедлайном</option>
+        <option value="priority">By priority</option>
+        <option value="createdAt">By creation date</option>
+        <option value="dueDate">By deadline</option>
       </select>
 
       <button
         type="button"
         onClick={() => onSortOrderChange(sortOrder === "asc" ? "desc" : "asc")}
-        title="Змінити напрямок сортування"
+        title="Change sorting direction"
         className="px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-300 hover:border-slate-700 cursor-pointer"
       >
-        {sortOrder === "asc" ? "↑ Зростання" : "↓ Спадання"}
+        {sortOrder === "asc" ? "↑ Ascending" : "↓ Descending"}
       </button>
 
       <button
         type="button"
         onClick={onReset}
-        title="Скинути всі фільтри до значень за замовчуванням"
+        title="Reset all filters to default values"
         className="px-3 py-2 rounded text-sm text-slate-500 hover:text-rose-400 hover:bg-slate-800/60 cursor-pointer"
       >
-        ✕ Скинути
+        ✕ Reset
       </button>
     </div>
   );

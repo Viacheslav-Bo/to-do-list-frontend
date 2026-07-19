@@ -11,11 +11,11 @@ export default function PriorityBreakdown() {
   return (
     <div className="flex flex-col gap-1.5">
       <span className="text-xs font-medium text-slate-500 px-1">
-        Пріоритет невиконаних
+        Priority of active tasks
       </span>
 
       {total === 0 ?
-        <p className="text-xs text-slate-600 px-1">Немає активних тасок</p>
+        <p className="text-xs text-slate-600 px-1">No active tasks</p>
       : <div className="flex flex-col gap-1.5 px-1">
           {PRIORITY_TIERS.map((tier) => {
             const count = breakdown[tier.key];

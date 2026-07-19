@@ -16,12 +16,12 @@ function formatRelativeDate(dueDateStr: string): {
 
   if (diffDays < 0)
     return {
-      label: `Протерміновано на ${Math.abs(diffDays)} дн.`,
+      label: `Overdue by ${Math.abs(diffDays)}d`,
       isOverdue: true,
     };
-  if (diffDays === 0) return { label: "Сьогодні", isOverdue: false };
-  if (diffDays === 1) return { label: "Завтра", isOverdue: false };
-  return { label: `Через ${diffDays} дн.`, isOverdue: false };
+  if (diffDays === 0) return { label: "Today", isOverdue: false };
+  if (diffDays === 1) return { label: "Tomorrow", isOverdue: false };
+  return { label: `In ${diffDays}d`, isOverdue: false };
 }
 
 export default function UpcomingDeadlines() {
@@ -31,13 +31,11 @@ export default function UpcomingDeadlines() {
   return (
     <div className="flex flex-col gap-1.5">
       <span className="text-xs font-medium text-slate-500 px-1">
-        Найближчі дедлайни
+        Upcoming deadlines
       </span>
 
       {deadlines.length === 0 ?
-        <p className="text-xs text-slate-600 px-1">
-          Немає запланованих дедлайнів 🎉
-        </p>
+        <p className="text-xs text-slate-600 px-1">No upcoming deadlines 🎉</p>
       : <ul className="flex flex-col gap-1">
           {deadlines.map((task) => {
             const { label, isOverdue } = formatRelativeDate(task.dueDate);
