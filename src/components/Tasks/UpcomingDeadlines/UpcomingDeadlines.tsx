@@ -24,13 +24,20 @@ function formatRelativeDate(dueDateStr: string): {
   return { label: `In ${diffDays}d`, isOverdue: false };
 }
 
+function getDeadlineColor(label: string, isOverdue: boolean) {
+  if (isOverdue) return "text-rose-500 font-medium";
+  if (label === "Today") return "text-emerald-400";
+  if (label === "Tomorrow") return "text-blue-400";
+  return "text-slate-500";
+}
+
 export default function UpcomingDeadlines() {
   const { data } = useTaskStats();
   const deadlines = data?.upcomingDeadlines ?? [];
 
   return (
-    <div className="flex flex-col gap-1.5">
-      <span className="text-xs font-medium text-slate-500 px-1">
+    <div className="flex flex-col gap-1.5 ">
+      <span className="mb-3 block text-xs font-semibold uppercase tracking-wider text-slate-500 px-1">
         Upcoming deadlines
       </span>
 
@@ -51,9 +58,7 @@ export default function UpcomingDeadlines() {
                   {task.title}
                 </span>
                 <span
-                  className={`text-[10px] shrink-0 ${
-                    isOverdue ? "text-rose-400" : "text-slate-500"
-                  }`}
+                  className={`text-[10px] shrink-0 uppercase tracking-wider ${getDeadlineColor(label, isOverdue)}`}
                 >
                   {label}
                 </span>

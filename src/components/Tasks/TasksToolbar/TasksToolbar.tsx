@@ -47,8 +47,8 @@ export default function TasksToolbar({
         <TaskForm onCreate={handleCreate} />
       </Modal>
 
-      <div className="flex flex-wrap items-center gap-3">
-        <div className="flex-1 min-w-[260px]">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+        <div className="flex-1 min-w-0">
           <FilterBar
             search={search}
             onSearchChange={onSearchChange}
@@ -61,7 +61,7 @@ export default function TasksToolbar({
         </div>
         <Button
           onClick={() => setIsCreateModalOpen(true)}
-          className="h-11 px-5 shrink-0"
+          className="h-11 px-5 shrink-0 w-full sm:w-auto"
         >
           + New task
         </Button>

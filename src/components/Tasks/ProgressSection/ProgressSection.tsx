@@ -19,22 +19,22 @@ export default function ProgressSection() {
 
   return (
     <section
-      className={`border rounded-xl p-5 space-y-3 transition-all duration-500 ${
+      className={`border rounded-xl p-5 space-y-1 sm:space-y-3 transition-all duration-500 ${
         progressPercentage === 100 ?
-          "bg-emerald-500/5 border-emerald-500/30 shadow-[0_0_25px_rgba(16,185,129,0.1)]"
+          "bg-amber-500/5 border-amber-500/30 shadow-[0_0_25px_rgba(245,158,11,0.15)]"
         : isTodayClear && !hasOverdue ?
-          "bg-amber-500/5 border-amber-500/20 shadow-[0_0_20px_rgba(245,158,11,0.05)]"
+          "bg-emerald-500/5 border-emerald-500/30 shadow-[0_0_25px_rgba(16,185,129,0.1)]"
         : hasNoTasksToday && !hasOverdue ? "bg-blue-500/5 border-blue-500/20"
         : "bg-slate-800/40 border-slate-800/60"
       }`}
     >
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 text-sm">
         {totalTasks > 0 && progressPercentage === 100 ?
-          <span className="text-emerald-400 font-bold flex items-center gap-1.5 animate-bounce">
+          <span className="text-amber-400 font-bold flex items-center gap-1.5 animate-bounce">
             🏆 Absolute victory! All tasks are completed! 🎉
           </span>
         : isTodayClear && !hasOverdue ?
-          <span className="text-amber-400 font-semibold flex items-center gap-1.5">
+          <span className="text-emerald-400 font-semibold flex items-center gap-1.5">
             🔥 Your plan for today is done! You are free! 🌟
           </span>
         : hasNoTasksToday && !hasOverdue ?
@@ -47,7 +47,11 @@ export default function ProgressSection() {
           </span>
         : <span className="text-slate-400 font-medium">Overall progress</span>}
 
-        <span className="font-bold text-emerald-400 self-end sm:self-auto">
+        <span
+          className={`font-bold self-end sm:self-auto ${
+            progressPercentage === 100 ? "text-amber-400" : "text-emerald-400"
+          }`}
+        >
           {progressPercentage}% ({completedTasks}/{totalTasks})
         </span>
       </div>
@@ -56,7 +60,7 @@ export default function ProgressSection() {
         <div
           className={`h-full bg-gradient-to-r transition-all duration-500 ${
             progressPercentage === 100 ?
-              "from-emerald-500 to-teal-400"
+              "from-amber-500 to-yellow-400"
             : "from-blue-500 to-emerald-500"
           }`}
           style={{ width: `${progressPercentage}%` }}

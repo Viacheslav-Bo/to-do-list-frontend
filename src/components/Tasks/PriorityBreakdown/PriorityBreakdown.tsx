@@ -10,7 +10,7 @@ export default function PriorityBreakdown() {
 
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="text-xs font-medium text-slate-500 px-1">
+      <span className="mb-3 block text-xs font-semibold uppercase tracking-wider text-slate-500 px-1">
         Priority of active tasks
       </span>
 
@@ -31,7 +31,7 @@ export default function PriorityBreakdown() {
                     style={{ width: `${percent}%` }}
                   />
                 </div>
-                <span className="text-xs text-slate-500 w-4 text-right shrink-0">
+                <span className="text-xs text-slate-500 w-6 text-right font-mono font-medium shrink-0">
                   {count}
                 </span>
               </div>

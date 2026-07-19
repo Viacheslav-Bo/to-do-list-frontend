@@ -1,6 +1,7 @@
 "use client";
 
 import { usePrivacyStore } from "@/lib/store/privacyStore";
+import { Shield, ShieldCheck } from "lucide-react";
 
 export default function PrivacyToggle() {
   const isPrivacyModeOn = usePrivacyStore((state) => state.isPrivacyModeOn);
@@ -18,8 +19,15 @@ export default function PrivacyToggle() {
       }`}
     >
       {isPrivacyModeOn ?
-        <span>👁️‍🗨️ Privacy On</span>
-      : <span>👁️ Privacy Off</span>}
+        <>
+          <ShieldCheck size={16} />
+          <span>Privacy On</span>
+        </>
+      : <>
+          <Shield size={16} />
+          <span>Privacy Off</span>
+        </>
+      }
     </button>
   );
 }

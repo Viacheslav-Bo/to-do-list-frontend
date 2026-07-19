@@ -1,121 +1,89 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
-import { logout } from "@/lib/api/clientApi";
 import UpcomingDeadlines from "@/components/Tasks/UpcomingDeadlines/UpcomingDeadlines";
 import PriorityBreakdown from "@/components/Tasks/PriorityBreakdown/PriorityBreakdown";
+import Navigation from "@/components/layout/Navigation/Navigation";
+import { X, Menu } from "lucide-react";
+import MiniProfile from "../MiniProfile/MiniProfile";
 
 export default function BurgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
   const user = useAuthStore((state) => state.user);
-  const clearIsAuth = useAuthStore((state) => state.clearIsAuth);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (!isOpen) return;
-
-    const handleClickOutside = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsOpen(false);
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEscape);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, [isOpen]);
-
-  const handleLogout = async () => {
-    setIsOpen(false);
-    try {
-      await logout();
-    } finally {
-      clearIsAuth();
-      router.push("/");
-    }
-  };
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
 
   return (
-    <div ref={menuRef} className="relative lg:hidden">
+    <div className="lg:hidden">
       <button
         type="button"
-        onClick={() => setIsOpen((v) => !v)}
-        aria-label="Menu"
-        aria-expanded={isOpen}
-        className="flex flex-col justify-center gap-1.5 w-9 h-9 items-center cursor-pointer"
+        onClick={() => setIsOpen(true)}
+        className="p-2 text-slate-200"
       >
-        <span
-          className={`block w-5 h-0.5 bg-slate-200 transition-transform ${isOpen ? "translate-y-2 rotate-45" : ""}`}
-        />
-        <span
-          className={`block w-5 h-0.5 bg-slate-200 transition-opacity ${isOpen ? "opacity-0" : ""}`}
-        />
-        <span
-          className={`block w-5 h-0.5 bg-slate-200 transition-transform ${isOpen ? "-translate-y-2 -rotate-45" : ""}`}
-        />
+        <Menu size={24} />
       </button>
 
-      {isOpen && (
-        <div className="absolute right-0 top-12 w-72 max-h-[80vh] overflow-y-auto bg-slate-900 border border-slate-800 rounded-xl shadow-xl p-3 flex flex-col gap-1 z-50">
-          <Link
-            href="/"
-            onClick={() => setIsOpen(false)}
-            className="px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800/60"
-          >
-            Home
-          </Link>
-
-          {user ?
-            <>
-              <Link
-                href="/tasks"
-                onClick={() => setIsOpen(false)}
-                className="px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800/60"
-              >
-                📋 My tasks
-              </Link>
-
-              <div className="pt-2 mt-1 border-t border-slate-800 flex flex-col gap-3 px-1">
-                <UpcomingDeadlines />
-                <PriorityBreakdown />
-              </div>
-
+      {isOpen &&
+        mounted &&
+        createPortal(
+          <div className="fixed inset-0 z-[100] flex flex-col bg-slate-900">
+            <div className="flex justify-end p-6">
               <button
-                onClick={handleLogout}
-                className="mt-2 px-3 py-2 rounded-lg text-sm text-left text-rose-400 hover:bg-slate-800/60 cursor-pointer border-t border-slate-800 pt-3"
+                type="button"
+                onClick={() => setIsOpen(false)}
+                className="text-slate-300 hover:text-white"
               >
-                Log out
+                <X size={28} />
               </button>
-            </>
-          : <>
-              <Link
-                href="/auth/login"
-                onClick={() => setIsOpen(false)}
-                className="px-3 py-2 rounded-lg text-sm text-slate-300 hover:bg-slate-800/60"
-              >
-                Log in
-              </Link>
-              <Link
-                href="/auth/register"
-                onClick={() => setIsOpen(false)}
-                className="px-3 py-2 rounded-lg text-sm text-blue-400 hover:bg-slate-800/60"
-              >
-                Sign up
-              </Link>
-            </>
-          }
-        </div>
-      )}
+            </div>
+
+            <div className="flex-1 overflow-y-auto px-6 pb-6 flex flex-col gap-8">
+              {user ?
+                <>
+                  <div onClick={() => setIsOpen(false)}>
+                    <Navigation />
+                  </div>
+
+                  <div className="pt-8 border-t border-slate-800 flex flex-col gap-8">
+                    <UpcomingDeadlines />
+                    <PriorityBreakdown />
+                  </div>
+
+                  <div className="mt-auto pt-8 border-t border-slate-800">
+                    <MiniProfile />
+                  </div>
+                </>
+              : <div className="flex-1 flex flex-col items-center justify-center gap-4">
+                  <p className="text-slate-500 text-sm mb-2">
+                    Sign in to manage your tasks
+                  </p>
+                  <Link
+                    href="/auth/register"
+                    onClick={() => setIsOpen(false)}
+                    className="w-full max-w-xs text-center px-4 py-3 rounded-lg bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-400 hover:to-emerald-400 text-white font-semibold"
+                  >
+                    Sign up
+                  </Link>
+                  <Link
+                    href="/auth/login"
+                    onClick={() => setIsOpen(false)}
+                    className="w-full max-w-xs text-center px-4 py-3 rounded-lg border border-slate-700 text-slate-200 hover:bg-slate-800/60 font-medium"
+                  >
+                    Log in
+                  </Link>
+                </div>
+              }
+            </div>
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }

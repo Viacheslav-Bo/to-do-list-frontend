@@ -3,12 +3,17 @@
 import { useState } from "react";
 import type { Task, UpdateTaskPayload } from "@/types/task";
 import { usePrivacyStore } from "@/lib/store/privacyStore";
-import PriorityBadge from "@/components/Tasks/PriorityBadge/PriorityBadge";
 import CategorySelect from "@/components/Tasks/CategorySelect/CategorySelect";
 import Modal from "@/components/ui/Modal/Modal";
 import Input from "@/components/ui/Input/Input";
 import Button from "@/components/ui/Button/Button";
 import PrioritySelect from "@/components/Tasks/PrioritySelect/PrioritySelect";
+
+import PriorityBadge from "@/components/ui/Badges/PriorityBadge";
+import StatusBadge from "@/components/ui/Badges/StatusBadge";
+import CategoryBadge from "@/components/ui/Badges/CategoryBadge";
+
+import { Shield } from "lucide-react";
 
 type Props = {
   task: Task;
@@ -142,70 +147,71 @@ export default function TaskItem({
         task.isCompleted ? "opacity-50" : ""
       } ${shouldBlur ? "border-amber-500/10" : "border-slate-800"}`}
     >
-      <div
-        className={`flex items-start gap-3 ${
-          shouldBlur ? "blur-sm transition-all" : ""
-        }`}
-      >
-        <input
-          type="checkbox"
-          checked={task.isCompleted}
-          onChange={() => onToggleComplete(task)}
-          className="mt-0.5 w-5 h-5 cursor-pointer accent-blue-500 shrink-0"
-        />
+      <div className={shouldBlur ? "blur-sm transition-all" : ""}>
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <PriorityBadge priority={task.priority} />
 
-        <div className="flex-1 min-w-0 flex items-start justify-between gap-3">
-          <span
-            className={`min-w-0 flex-1 break-all text-sm font-medium ${
+            <StatusBadge label={dueStatus.label} color={dueStatus.color} />
+
+            <CategoryBadge category={task.category} />
+          </div>
+
+          <button
+            onClick={openEdit}
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded text-slate-400 transition hover:bg-slate-800 hover:text-slate-200"
+            aria-label="Edit task"
+            title="Edit task"
+          >
+            ⋮
+          </button>
+        </div>
+
+        <div className="mt-4 flex items-start gap-3">
+          <input
+            type="checkbox"
+            checked={task.isCompleted}
+            onChange={() => onToggleComplete(task)}
+            className="mt-0.5 h-5 w-5 shrink-0 cursor-pointer accent-blue-500"
+          />
+
+          <h3
+            className={`flex-1 break-words text-sm font-medium ${
               task.isCompleted ?
                 "line-through text-slate-500"
               : "text-slate-100"
             }`}
           >
             {task.title}
-          </span>
-
-          <div className="flex items-center gap-2 shrink-0 self-start">
-            <PriorityBadge priority={task.priority} />
-
-            <span
-              className={`text-[10px] px-2 py-0.5 rounded border ${dueStatus.color}`}
-            >
-              {dueStatus.label}
-            </span>
-            <span className="text-[10px] px-2 py-0.5 rounded border border-slate-700 text-slate-400 bg-slate-800/50">
-              #{task.category}
-            </span>
-            <button
-              onClick={openEdit}
-              className="flex h-7 w-7 items-center justify-center rounded text-slate-400 transition hover:bg-slate-800 hover:text-slate-200"
-              aria-label="Edit task"
-              title="Edit task"
-            >
-              ⋮
-            </button>
-          </div>
+          </h3>
         </div>
+
+        {description && (
+          <div className="mt-3 ml-8 text-xs text-slate-400">
+            <p className="line-clamp-2 break-words">{description}</p>
+
+            {isDescriptionTruncated && (
+              <button
+                onClick={openView}
+                className="mt-1 text-blue-400 hover:underline"
+              >
+                Details
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
-      {description && (
-        <div
-          className={`pl-8 text-xs text-slate-400 ${
-            shouldBlur ? "blur-sm" : ""
-          }`}
-        >
-          <p className="line-clamp-2 break-words">{description}</p>
-
-          {isDescriptionTruncated && (
-            <button
-              onClick={openView}
-              className="mt-1 text-blue-400 hover:underline"
-            >
-              Details
-            </button>
-          )}
-        </div>
-      )}
+      <div className="mt-auto flex justify-end">
+        {task.isPrivate && (
+          <div
+            title="Private task"
+            className="flex h-7 w-7 items-center justify-center text-amber-400/60"
+          >
+            <Shield size={16} strokeWidth={1.5} />
+          </div>
+        )}
+      </div>
 
       <Modal
         isOpen={modalMode === "view"}

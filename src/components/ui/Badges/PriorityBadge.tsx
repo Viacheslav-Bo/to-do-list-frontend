@@ -26,12 +26,12 @@ export function getPriorityInfo(priority: number) {
 }
 
 export default function PriorityBadge({ priority }: Props) {
-  const { color } = getPriorityInfo(priority);
+  const { label, color } = getPriorityInfo(priority);
 
   return (
     <span
-      className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${color}`}
-      title={`Priority: ${priority}/10`}
+      className={`inline-flex h-6 w-[58px] shrink-0 items-center justify-center rounded-md border text-[11px] font-semibold ${color}`}
+      title={`${label} priority (${priority}/10)`}
     >
       P{priority}
     </span>

@@ -7,14 +7,16 @@ import Navigation from "@/components/layout/Navigation/Navigation";
 
 export default function Sidebar() {
   return (
-    <aside className="hidden lg:flex flex-col fixed left-0 top-20 bottom-0 w-64 shrink-0 bg-slate-800/40 border-r border-slate-800 p-5 gap-5 overflow-y-auto">
-      <Navigation />
+    <aside className="hidden lg:flex flex-col fixed left-0 top-20 bottom-0 w-64 shrink-0 bg-slate-800/40 border-r border-slate-800 p-5 gap-8 overflow-y-auto">
+      <div className="mb-8">
+        <Navigation />
+      </div>
 
       <div className="border-t border-slate-800 pt-5">
         <UpcomingDeadlines />
       </div>
 
-      <div className="pt-4 border-t border-slate-800">
+      <div className="border-t border-slate-800 pt-5">
         <PriorityBreakdown />
       </div>
 
