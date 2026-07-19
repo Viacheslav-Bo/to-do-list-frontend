@@ -1,6 +1,7 @@
 import { nextServer } from "./api";
 import type {
   Task,
+  TaskStats,
   CreateTaskPayload,
   UpdateTaskPayload,
   GetTasksParams,
@@ -49,4 +50,10 @@ export const updateTask = async (
 
 export const deleteTask = async (taskId: string): Promise<void> => {
   await nextServer.delete(`/tasks/${taskId}`);
+};
+
+
+export const getTaskStats = async (): Promise<TaskStats> => {
+  const res = await nextServer.get<{ data: TaskStats }>("/tasks/stats");
+  return res.data.data;
 };

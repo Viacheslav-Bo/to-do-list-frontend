@@ -35,7 +35,7 @@ export default function SignIn() {
     <main className="min-h-screen bg-[#0B0F19] flex justify-center pt-32 p-6">
       <form
         action={handleSubmit}
-        className="w-full max-w-sm h-fit flex flex-col gap-4 p-6 bg-slate-900/40 border border-slate-800 rounded-xl shadow-sm"
+        className="w-full max-w-sm h-fit flex flex-col gap-4 p-6 bg-slate-700/40 border border-slate-800 rounded-xl shadow-sm"
       >
         <h1 className="text-xl font-semibold text-slate-100 mb-2">Sign in</h1>
 

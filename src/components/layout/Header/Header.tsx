@@ -9,7 +9,7 @@ const Header = () => {
   const user = useAuthStore((state) => state.user);
 
   return (
-    <header className="fixed top-0 left-0 w-full z-40 shadow-md bg-gray-900 flex items-center justify-between gap-4 border-b border-slate-800 px-6 py-4">
+    <header className="fixed top-0 left-0 w-full z-40 shadow-md bg-slate-800/40 flex items-center justify-between gap-4 border-b border-slate-800 px-6 py-4">
       <Link href="/" aria-label="Home">
         <h1 className="text-2xl font-black tracking-tight text-slate-100">
           Just{" "}

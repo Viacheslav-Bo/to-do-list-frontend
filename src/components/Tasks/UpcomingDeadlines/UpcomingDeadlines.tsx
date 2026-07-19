@@ -1,6 +1,6 @@
 "use client";
 
-import { useDashboardStats } from "@/hooks/tasks/useDashboardStats";
+import { useTaskStats } from "@/hooks/tasks/useTaskStats";
 
 function formatRelativeDate(dueDateStr: string): {
   label: string;
@@ -10,7 +10,7 @@ function formatRelativeDate(dueDateStr: string): {
   today.setHours(0, 0, 0, 0);
   const dueDate = new Date(dueDateStr);
   dueDate.setHours(0, 0, 0, 0);
-  const diffDays = Math.round(
+  const diffDays = Math.floor(
     (dueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
   );
 
@@ -25,7 +25,7 @@ function formatRelativeDate(dueDateStr: string): {
 }
 
 export default function UpcomingDeadlines() {
-  const { data } = useDashboardStats();
+  const { data } = useTaskStats();
   const deadlines = data?.upcomingDeadlines ?? [];
 
   return (

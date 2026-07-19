@@ -43,7 +43,7 @@ export default function FilterBar({
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-3 p-3 bg-slate-900/40 border border-slate-800 rounded-xl">
+    <div className="flex flex-wrap items-center gap-3 p-3 bg-slate-800/40 border border-slate-800 rounded-xl">
       <input
         value={localSearch}
         onChange={(e) => handleSearchInput(e.target.value)}

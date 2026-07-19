@@ -138,7 +138,7 @@ export default function TaskItem({
 
   return (
     <div
-      className={`relative h-full flex flex-col gap-3 p-4 bg-slate-900/40 backdrop-blur-md border rounded-xl transition-all duration-300 ${
+      className={`relative h-full flex flex-col gap-3 p-4 bg-slate-700/40 backdrop-blur-md border rounded-xl transition-all duration-300 ${
         task.isCompleted ? "opacity-50" : ""
       } ${shouldBlur ? "border-amber-500/10" : "border-slate-800"}`}
     >

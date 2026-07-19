@@ -27,7 +27,7 @@ export default function TasksPage() {
 
   const isCompletedParam =
     view === "completed" ? true
-    : view === "active" ? false
+    : view === "active" || view === "today" ? false
     : undefined;
 
   const { data, isLoading, isError } = useTasksQuery({

@@ -51,3 +51,25 @@ export type PaginatedTasks = {
   hasPreviousPage: boolean;
   hasNextPage: boolean;
 };
+
+export type TaskStats = {
+  totalTasks: number;
+  activeTasks: number;
+  privateTasks: number;
+  completedTasks: number;
+  dueTodayTotal: number;
+  dueTodayUndone: number;
+  overdueCount: number;
+  priorityBreakdown: {
+    high: number;
+    medium: number;
+    low: number;
+  };
+  upcomingDeadlines: {
+    _id: string;
+    title: string;
+    priority: number;
+    category: string;
+    dueDate: string;
+  }[];
+};

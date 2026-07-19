@@ -1,10 +1,10 @@
 "use client";
 
-import { useDashboardStats } from "@/hooks/tasks/useDashboardStats";
+import { useTaskStats } from "@/hooks/tasks/useTaskStats";
 import { PRIORITY_TIERS } from "@/constants/priority";
 
 export default function PriorityBreakdown() {
-  const { data } = useDashboardStats();
+  const { data } = useTaskStats();
   const breakdown = data?.priorityBreakdown ?? { high: 0, medium: 0, low: 0 };
   const total = breakdown.high + breakdown.medium + breakdown.low;
 

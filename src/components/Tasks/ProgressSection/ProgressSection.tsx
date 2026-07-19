@@ -1,9 +1,9 @@
 "use client";
 
-import { useDashboardStats } from "@/hooks/tasks/useDashboardStats";
+import { useTaskStats } from "@/hooks/tasks/useTaskStats";
 
 export default function ProgressSection() {
-  const { data } = useDashboardStats();
+  const { data } = useTaskStats();
 
   const totalTasks = data?.totalTasks ?? 0;
   const completedTasks = data?.completedTasks ?? 0;
@@ -25,7 +25,7 @@ export default function ProgressSection() {
         : isTodayClear && !hasOverdue ?
           "bg-amber-500/5 border-amber-500/20 shadow-[0_0_20px_rgba(245,158,11,0.05)]"
         : hasNoTasksToday && !hasOverdue ? "bg-blue-500/5 border-blue-500/20"
-        : "bg-slate-900/30 border-slate-800/60"
+        : "bg-slate-800/40 border-slate-800/60"
       }`}
     >
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-sm">
