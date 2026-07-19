@@ -12,7 +12,7 @@ export default function PrivacyToggle() {
       onClick={toggle}
       type="button"
       title="Blur private tasks in the list"
-      className={`cursor-pointer flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-medium transition-all duration-200 ${
+      className={`flex cursor-pointer items-center gap-1.5 rounded-lg border px-2.5 py-2 text-[clamp(0.75rem,2vw,0.875rem)] font-medium transition-all duration-200 sm:gap-2 sm:px-4 ${
         isPrivacyModeOn ?
           "bg-amber-500/10 border-amber-500/30 text-amber-400"
         : "bg-slate-800 border-slate-800 text-slate-400 hover:border-slate-700"

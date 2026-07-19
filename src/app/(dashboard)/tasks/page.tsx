@@ -32,7 +32,6 @@ export default function TasksPage() {
 
   const { data, isLoading, isError } = useTasksQuery({
     page,
-    limit: 20,
     search: search || undefined,
     isCompleted: isCompletedParam,
     isPrivate: view === "private" ? true : undefined,
@@ -88,8 +87,10 @@ export default function TasksPage() {
   }[view];
 
   return (
-    <section className="max-w-5xl mx-auto px-4 py-10 flex flex-col gap-5">
-      <h1 className="text-2xl font-bold text-slate-100">{pageTitle}</h1>
+    <section className="mx-auto flex max-w-5xl flex-col gap-4 px-3 py-6 sm:gap-5 sm:px-4 sm:py-8 lg:px-5 lg:py-10 3xl:max-w-6xl">
+      <h1 className="text-[clamp(1.25rem,3vw,1.5rem)] font-bold text-slate-100">
+        {pageTitle}
+      </h1>
 
       <ProgressSection />
 

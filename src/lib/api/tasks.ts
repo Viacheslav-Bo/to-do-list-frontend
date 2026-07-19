@@ -14,7 +14,7 @@ export const getTasks = async (
   const res = await nextServer.get<{ data: PaginatedTasks }>("/tasks", {
     params: {
       page: params.page ?? 1,
-      limit: params.limit ?? 12,
+      ...(params.limit ? { limit: params.limit } : {}),
       ...(params.search ? { search: params.search } : {}),
       ...(params.isCompleted !== undefined ?
         { isCompleted: params.isCompleted }
@@ -51,7 +51,6 @@ export const updateTask = async (
 export const deleteTask = async (taskId: string): Promise<void> => {
   await nextServer.delete(`/tasks/${taskId}`);
 };
-
 
 export const getTaskStats = async (): Promise<TaskStats> => {
   const res = await nextServer.get<{ data: TaskStats }>("/tasks/stats");

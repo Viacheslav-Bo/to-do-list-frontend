@@ -4,8 +4,7 @@ import { useState } from "react";
 import type { CreateTaskPayload } from "@/types/task";
 import Input from "@/components/ui/Input/Input";
 import Button from "@/components/ui/Button/Button";
-import CategorySelect from "@/components/Tasks/CategorySelect/CategorySelect";
-import PrioritySelect from "@/components/Tasks/PrioritySelect/PrioritySelect";
+import TaskFieldsGroup from "@/components/Tasks/TaskFieldsGroup/TaskFieldsGroup";
 
 type Props = {
   onCreate: (payload: CreateTaskPayload) => Promise<void>;
@@ -57,7 +56,7 @@ export default function TaskForm({ onCreate }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:gap-4">
       <Input
         id="task-title"
         placeholder="Task title..."
@@ -72,61 +71,23 @@ export default function TaskForm({ onCreate }: Props) {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         rows={2}
-        className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none"
+        className="w-full resize-none rounded border border-slate-800 bg-slate-950 px-3 py-2 text-[clamp(0.8rem,2.2vw,0.9rem)] text-slate-200 focus:border-blue-500 focus:outline-none sm:px-3.5 sm:py-2.5"
       />
 
-      <div className="grid grid-cols-2 gap-3">
-        <div className="flex flex-col gap-1.5">
-          <label
-            htmlFor="task-category"
-            className="text-sm font-medium text-slate-400"
-          >
-            Category
-          </label>
-          <CategorySelect
-            id="task-category"
-            value={category}
-            onChange={setCategory}
-          />
-        </div>
-
-        <div className="flex flex-col gap-1.5">
-          <label
-            htmlFor="task-priority"
-            className="text-sm font-medium text-slate-400"
-          >
-            Priority
-          </label>
-          <PrioritySelect
-            id="task-priority"
-            value={priority}
-            onChange={setPriority}
-          />
-        </div>
-      </div>
-
-      <div className="flex items-end gap-3">
-        <Input
-          id="task-due-date"
-          type="date"
-          label="Deadline"
-          value={dueDate}
-          onChange={(e) => setDueDate(e.target.value)}
-          className="flex-1"
-        />
-
-        <label className="flex items-center gap-2 text-sm text-slate-400 pb-2 cursor-pointer shrink-0">
-          <input
-            type="checkbox"
-            checked={isPrivate}
-            onChange={(e) => setIsPrivate(e.target.checked)}
-          />
-          Private
-        </label>
-      </div>
+      <TaskFieldsGroup
+        idPrefix="task-create"
+        category={category}
+        onCategoryChange={setCategory}
+        dueDate={dueDate}
+        onDueDateChange={setDueDate}
+        priority={priority}
+        onPriorityChange={setPriority}
+        isPrivate={isPrivate}
+        onIsPrivateChange={setIsPrivate}
+      />
 
       {error && (
-        <p className="text-sm text-rose-400 bg-rose-500/10 p-2 rounded border border-rose-500/20">
+        <p className="rounded border border-rose-500/20 bg-rose-500/10 p-2 text-[clamp(0.8rem,2.2vw,0.875rem)] text-rose-400">
           {error}
         </p>
       )}

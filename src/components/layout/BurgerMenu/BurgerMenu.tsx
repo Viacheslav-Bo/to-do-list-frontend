@@ -34,7 +34,7 @@ export default function BurgerMenu() {
         mounted &&
         createPortal(
           <div className="fixed inset-0 z-[100] flex flex-col bg-slate-900">
-            <div className="flex justify-end p-6">
+            <div className="flex justify-end p-4 sm:p-6">
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
@@ -44,7 +44,7 @@ export default function BurgerMenu() {
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto px-6 pb-6 flex flex-col gap-8">
+            <div className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 pb-6 sm:px-6 sm:gap-8">
               {user ?
                 <>
                   <div onClick={() => setIsOpen(false)}>
@@ -60,8 +60,8 @@ export default function BurgerMenu() {
                     <MiniProfile />
                   </div>
                 </>
-              : <div className="flex-1 flex flex-col items-center justify-center gap-4">
-                  <p className="text-slate-500 text-sm mb-2">
+              : <div className="flex flex-1 flex-col items-center justify-center gap-4">
+                  <p className="mb-2 text-[clamp(0.8rem,2.2vw,0.875rem)] text-slate-500">
                     Sign in to manage your tasks
                   </p>
                   <Link

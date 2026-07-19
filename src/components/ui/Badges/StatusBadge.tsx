@@ -6,7 +6,7 @@ type Props = {
 export default function StatusBadge({ label, color }: Props) {
   return (
     <span
-      className={`inline-flex items-center h-6 px-2 text-[10px] rounded border ${color}`}
+      className={`inline-flex h-6 items-center rounded border px-2 text-[clamp(0.68rem,1.7vw,0.75rem)] ${color}`}
     >
       {label}
     </span>

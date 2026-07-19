@@ -30,7 +30,7 @@ export default function PriorityBadge({ priority }: Props) {
 
   return (
     <span
-      className={`inline-flex h-6 w-[58px] shrink-0 items-center justify-center rounded-md border text-[11px] font-semibold ${color}`}
+      className={`inline-flex h-6 min-w-[52px] shrink-0 items-center justify-center rounded-md border px-2 text-[clamp(0.68rem,1.7vw,0.75rem)] font-semibold ${color}`}
       title={`${label} priority (${priority}/10)`}
     >
       P{priority}

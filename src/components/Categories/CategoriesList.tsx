@@ -14,15 +14,15 @@ export default function CategoriesList({
   if (categories.length === 0) return null;
 
   return (
-    <div className="flex flex-wrap gap-1.5 pt-2">
-      <span className="text-xs text-slate-500 self-center mr-1">
+    <div className="flex flex-wrap items-center gap-1.5 pt-2">
+      <span className="mr-1 self-center text-[clamp(0.7rem,1.8vw,0.75rem)] text-slate-500">
         Categories:
       </span>
 
       <button
         type="button"
         onClick={() => onSelect(null)}
-        className={`px-3 py-1 rounded-full text-[11px] font-bold border transition-all cursor-pointer ${
+        className={`rounded-full border px-3 py-1 text-[clamp(0.7rem,1.8vw,0.75rem)] font-bold transition-all cursor-pointer ${
           selectedCategory === null ?
             "bg-emerald-600/10 border-emerald-500/30 text-emerald-400"
           : "bg-slate-950 border-slate-800 text-slate-500 hover:border-slate-700"

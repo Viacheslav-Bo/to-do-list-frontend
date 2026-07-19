@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import type { SortBy, SortOrder } from "@/types/task";
 
+import { ArrowUp, ArrowDown, RotateCcw } from "lucide-react";
+
 type Props = {
   search: string;
   onSearchChange: (value: string) => void;
@@ -43,45 +45,58 @@ export default function FilterBar({
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-2 p-3 bg-slate-800/40 border border-slate-800 rounded-xl">
+    <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 rounded-xl border border-slate-800 bg-slate-800/40 p-2.5 sm:p-3">
       <input
         value={localSearch}
         onChange={(e) => handleSearchInput(e.target.value)}
         placeholder="Search by title..."
-        className="flex-1 min-w-[120px] px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500"
+        className="w-full sm:min-w-[120px] sm:flex-1 rounded border border-slate-800 bg-slate-950 px-3 py-2 text-[clamp(0.8rem,2.2vw,0.875rem)] text-slate-200 focus:border-blue-500 focus:outline-none"
       />
+      <div className="flex flex-wrap items-center gap-2">
+        {(
+          [
+            { value: "createdAt", label: "Created" },
+            { value: "priority", label: "Priority" },
+            { value: "dueDate", label: "Deadline" },
+          ] as const
+        ).map((option) => {
+          const isActive = sortBy === option.value;
+          return (
+            <button
+              key={option.value}
+              type="button"
+              onClick={() => {
+                if (isActive) {
+                  onSortOrderChange(sortOrder === "asc" ? "desc" : "asc");
+                } else {
+                  onSortByChange(option.value);
+                  onSortOrderChange("desc");
+                }
+              }}
+              className={`flex h-9 shrink-0 items-center gap-1 rounded border px-3 text-[clamp(0.75rem,2vw,0.8rem)] cursor-pointer ${
+                isActive ?
+                  "border-blue-500/40 bg-blue-500/10 text-blue-300"
+                : "border-slate-800 bg-slate-950 text-slate-400 hover:border-slate-700"
+              }`}
+            >
+              {option.label}
+              {isActive &&
+                (sortOrder === "asc" ?
+                  <ArrowUp size={14} />
+                : <ArrowDown size={14} />)}
+            </button>
+          );
+        })}
 
-      <select
-        value={sortBy}
-        onChange={(e) => onSortByChange(e.target.value as SortBy)}
-        className="px-2 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500"
-      >
-        <option value="priority">Priority</option>
-        <option value="createdAt">Creation date</option>
-        <option value="dueDate">Deadline</option>
-      </select>
-
-      <button
-        type="button"
-        onClick={() => onSortOrderChange(sortOrder === "asc" ? "desc" : "asc")}
-        title={
-          sortOrder === "asc" ?
-            "Ascending — click for descending"
-          : "Descending — click for ascending"
-        }
-        className="shrink-0 w-30 h-9 flex items-center justify-center bg-slate-950 border border-slate-800 rounded text-slate-300 hover:border-slate-700 cursor-pointer"
-      >
-        {sortOrder === "asc" ? "Ascending" : "Descending"}
-      </button>
-
-      <button
-        type="button"
-        onClick={onReset}
-        title="Reset all filters to default values"
-        className="shrink-0 w-9 h-9 flex items-center justify-center rounded text-slate-500 hover:text-rose-400 hover:bg-slate-800/60 cursor-pointer"
-      >
-        ✕
-      </button>
+        <button
+          type="button"
+          onClick={onReset}
+          title="Reset all filters to default values"
+          className="ml-auto flex h-9 w-9 shrink-0 items-center justify-center rounded text-slate-500 hover:bg-slate-800/60 hover:text-rose-400 cursor-pointer"
+        >
+          <RotateCcw size={16} />
+        </button>
+      </div>
     </div>
   );
 }

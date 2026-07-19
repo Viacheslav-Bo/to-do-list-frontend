@@ -14,7 +14,7 @@ export default function TasksPagination({
   if (totalPages <= 1) return null;
 
   return (
-    <div className="flex items-center justify-center gap-3 pt-2">
+    <div className="flex flex-wrap items-center justify-center gap-2 pt-2 sm:gap-3">
       <Button
         variant="secondary"
         disabled={page <= 1}
@@ -22,7 +22,7 @@ export default function TasksPagination({
       >
         ←
       </Button>
-      <span className="text-sm text-slate-400">
+      <span className="text-[clamp(0.8rem,2.2vw,0.875rem)] text-slate-400">
         {page} / {totalPages}
       </span>
       <Button

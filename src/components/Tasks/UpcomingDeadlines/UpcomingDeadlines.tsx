@@ -16,7 +16,7 @@ function formatRelativeDate(dueDateStr: string): {
 
   if (diffDays < 0)
     return {
-      label: `Overdue by ${Math.abs(diffDays)}d`,
+      label: "Overdue",
       isOverdue: true,
     };
   if (diffDays === 0) return { label: "Today", isOverdue: false };
@@ -36,14 +36,16 @@ export default function UpcomingDeadlines() {
   const deadlines = data?.upcomingDeadlines ?? [];
 
   return (
-    <div className="flex flex-col gap-1.5 ">
-      <span className="mb-3 block text-xs font-semibold uppercase tracking-wider text-slate-500 px-1">
+    <div className="flex flex-col gap-2">
+      <span className="mb-2 block px-1 text-[clamp(0.7rem,2vw,0.75rem)] font-semibold uppercase tracking-wider text-slate-500 sm:mb-3">
         Upcoming deadlines
       </span>
 
       {deadlines.length === 0 ?
-        <p className="text-xs text-slate-600 px-1">No upcoming deadlines 🎉</p>
-      : <ul className="flex flex-col gap-1">
+        <p className="px-1 text-[clamp(0.75rem,2vw,0.8rem)] text-slate-600">
+          No upcoming deadlines 🎉
+        </p>
+      : <ul className="flex flex-col gap-1.5">
           {deadlines.map((task) => {
             const { label, isOverdue } = formatRelativeDate(task.dueDate);
             return (
@@ -52,13 +54,13 @@ export default function UpcomingDeadlines() {
                 className="flex items-center justify-between gap-2 px-1"
               >
                 <span
-                  className="text-sm text-slate-300 truncate"
+                  className="min-w-0 flex-1 truncate text-[clamp(0.8rem,2.2vw,0.875rem)] text-slate-300"
                   title={task.title}
                 >
                   {task.title}
                 </span>
                 <span
-                  className={`text-[10px] shrink-0 uppercase tracking-wider ${getDeadlineColor(label, isOverdue)}`}
+                  className={`shrink-0 text-[clamp(0.625rem,1.7vw,0.7rem)] uppercase tracking-wider ${getDeadlineColor(label, isOverdue)}`}
                 >
                   {label}
                 </span>

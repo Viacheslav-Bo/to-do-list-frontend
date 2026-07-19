@@ -38,11 +38,11 @@ export default function Modal({ isOpen, onClose, title, children }: Props) {
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-3 py-4 backdrop-blur-sm sm:px-4"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md bg-slate-900 border border-slate-800 rounded-xl shadow-xl p-6 max-h-[90vh] overflow-y-auto"
+        className="relative max-h-[90vh] w-full max-w-md overflow-y-auto rounded-xl border border-slate-800 bg-slate-900 p-4 shadow-xl sm:p-6"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -55,7 +55,7 @@ export default function Modal({ isOpen, onClose, title, children }: Props) {
         </button>
 
         {title && (
-          <h2 className="text-lg font-semibold text-slate-100 mb-4 pr-6">
+          <h2 className="mb-4 pr-6 text-[clamp(1rem,2.7vw,1.125rem)] font-semibold text-slate-100">
             {title}
           </h2>
         )}

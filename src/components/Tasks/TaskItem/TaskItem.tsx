@@ -3,11 +3,10 @@
 import { useState } from "react";
 import type { Task, UpdateTaskPayload } from "@/types/task";
 import { usePrivacyStore } from "@/lib/store/privacyStore";
-import CategorySelect from "@/components/Tasks/CategorySelect/CategorySelect";
 import Modal from "@/components/ui/Modal/Modal";
 import Input from "@/components/ui/Input/Input";
 import Button from "@/components/ui/Button/Button";
-import PrioritySelect from "@/components/Tasks/PrioritySelect/PrioritySelect";
+import TaskFieldsGroup from "@/components/Tasks/TaskFieldsGroup/TaskFieldsGroup";
 
 import PriorityBadge from "@/components/ui/Badges/PriorityBadge";
 import StatusBadge from "@/components/ui/Badges/StatusBadge";
@@ -143,13 +142,13 @@ export default function TaskItem({
 
   return (
     <div
-      className={`relative h-full flex flex-col gap-3 p-4 bg-slate-700/40 backdrop-blur-md border rounded-xl transition-all duration-300 ${
+      className={`relative flex h-full flex-col gap-2.5 rounded-xl border bg-slate-700/40 p-3 backdrop-blur-md transition-all duration-300 sm:gap-3 sm:p-4 ${
         task.isCompleted ? "opacity-50" : ""
       } ${shouldBlur ? "border-amber-500/10" : "border-slate-800"}`}
     >
       <div className={shouldBlur ? "blur-sm transition-all" : ""}>
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex flex-wrap items-center gap-2">
+        <div className="flex items-start justify-between gap-2 sm:gap-3">
+          <div className="flex min-w-0 flex-wrap items-center gap-1.5 sm:gap-2">
             <PriorityBadge priority={task.priority} />
 
             <StatusBadge label={dueStatus.label} color={dueStatus.color} />
@@ -159,7 +158,7 @@ export default function TaskItem({
 
           <button
             onClick={openEdit}
-            className="flex h-7 w-7 shrink-0 items-center justify-center rounded text-slate-400 transition hover:bg-slate-800 hover:text-slate-200"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded text-slate-400 transition hover:bg-slate-800 hover:text-slate-200 sm:h-7 sm:w-7"
             aria-label="Edit task"
             title="Edit task"
           >
@@ -176,7 +175,7 @@ export default function TaskItem({
           />
 
           <h3
-            className={`flex-1 break-words text-sm font-medium ${
+            className={`flex-1 break-words text-[clamp(0.875rem,2.2vw,0.95rem)] font-medium ${
               task.isCompleted ?
                 "line-through text-slate-500"
               : "text-slate-100"
@@ -187,7 +186,7 @@ export default function TaskItem({
         </div>
 
         {description && (
-          <div className="mt-3 ml-8 text-xs text-slate-400">
+          <div className="mt-3 ml-0 text-[clamp(0.75rem,2vw,0.8rem)] text-slate-400 sm:ml-8">
             <p className="line-clamp-2 break-words">{description}</p>
 
             {isDescriptionTruncated && (
@@ -218,7 +217,7 @@ export default function TaskItem({
         onClose={closeModal}
         title={task.title}
       >
-        <p className="text-sm text-slate-300 whitespace-pre-wrap break-words mb-4">
+        <p className="mb-4 whitespace-pre-wrap break-words text-[clamp(0.8rem,2.4vw,0.875rem)] text-slate-300">
           {task.description}
         </p>
         <div className="flex justify-end">
@@ -245,30 +244,22 @@ export default function TaskItem({
             onChange={(e) => setEditDescription(e.target.value)}
             placeholder="Description (optional)..."
             rows={3}
-            className="w-full px-3 py-2 bg-slate-950 border border-slate-800 rounded text-sm text-slate-200 focus:outline-none focus:border-blue-500 resize-none"
+            className="w-full resize-none rounded border border-slate-800 bg-slate-950 px-3 py-2 text-[clamp(0.8rem,2.2vw,0.9rem)] text-slate-200 focus:border-blue-500 focus:outline-none"
           />
 
-          <div className="grid grid-cols-2 gap-3">
-            <CategorySelect value={editCategory} onChange={setEditCategory} />
-            <Input
-              type="date"
-              value={editDueDate}
-              onChange={(e) => setEditDueDate(e.target.value)}
-            />
+          <TaskFieldsGroup
+            idPrefix="task-edit"
+            category={editCategory}
+            onCategoryChange={setEditCategory}
+            dueDate={editDueDate}
+            onDueDateChange={setEditDueDate}
+            priority={editPriority}
+            onPriorityChange={setEditPriority}
+            isPrivate={editIsPrivate}
+            onIsPrivateChange={setEditIsPrivate}
+          />
 
-            <PrioritySelect value={editPriority} onChange={setEditPriority} />
-          </div>
-
-          <label className="flex items-center gap-2 text-sm text-slate-400">
-            <input
-              type="checkbox"
-              checked={editIsPrivate}
-              onChange={(e) => setEditIsPrivate(e.target.checked)}
-            />
-            Private
-          </label>
-
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-between">
             <Button
               variant="danger"
               onClick={() => {
@@ -279,7 +270,7 @@ export default function TaskItem({
               Delete
             </Button>
 
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <Button variant="secondary" onClick={closeModal}>
                 Cancel
               </Button>
@@ -297,12 +288,12 @@ export default function TaskItem({
         onClose={() => setIsDeleteModalOpen(false)}
         title="Delete task?"
       >
-        <p className="text-sm text-slate-400 mb-4">
+        <p className="mb-4 text-[clamp(0.8rem,2.4vw,0.875rem)] text-slate-400">
           Task «{task.title}» will be permanently deleted. This action cannot be
           undone.
         </p>
 
-        <div className="flex justify-end gap-2">
+        <div className="flex flex-wrap justify-end gap-2">
           <Button
             variant="secondary"
             onClick={() => setIsDeleteModalOpen(false)}

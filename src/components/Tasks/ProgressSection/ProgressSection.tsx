@@ -19,36 +19,36 @@ export default function ProgressSection() {
 
   return (
     <section
-      className={`border rounded-xl p-5 space-y-1 sm:space-y-3 transition-all duration-500 ${
+      className={`rounded-xl border p-4 space-y-2 transition-all duration-500 sm:p-5 sm:space-y-3 ${
         progressPercentage === 100 ?
-          "bg-amber-500/5 border-amber-500/30 shadow-[0_0_25px_rgba(245,158,11,0.15)]"
+          "border-amber-500/30 bg-amber-500/5 shadow-[0_0_25px_rgba(245,158,11,0.15)]"
         : isTodayClear && !hasOverdue ?
-          "bg-emerald-500/5 border-emerald-500/30 shadow-[0_0_25px_rgba(16,185,129,0.1)]"
-        : hasNoTasksToday && !hasOverdue ? "bg-blue-500/5 border-blue-500/20"
-        : "bg-slate-800/40 border-slate-800/60"
+          "border-emerald-500/30 bg-emerald-500/5 shadow-[0_0_25px_rgba(16,185,129,0.1)]"
+        : hasNoTasksToday && !hasOverdue ? "border-blue-500/20 bg-blue-500/5"
+        : "border-slate-800/60 bg-slate-800/40"
       }`}
     >
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2 text-sm">
+      <div className="flex flex-col gap-2 text-[clamp(0.75rem,2.2vw,0.875rem)] sm:flex-row sm:items-center sm:justify-between sm:gap-2">
         {totalTasks > 0 && progressPercentage === 100 ?
-          <span className="text-amber-400 font-bold flex items-center gap-1.5 animate-bounce">
+          <span className="flex items-center gap-1.5 break-words font-bold leading-relaxed text-amber-400 animate-bounce">
             🏆 Absolute victory! All tasks are completed! 🎉
           </span>
         : isTodayClear && !hasOverdue ?
-          <span className="text-emerald-400 font-semibold flex items-center gap-1.5">
+          <span className="flex items-center gap-1.5 break-words font-semibold leading-relaxed text-emerald-400">
             🔥 Your plan for today is done! You are free! 🌟
           </span>
         : hasNoTasksToday && !hasOverdue ?
-          <span className="text-blue-400 font-medium flex items-center gap-1.5">
+          <span className="flex items-center gap-1.5 break-words font-medium leading-relaxed text-blue-400">
             ✨ A new day — a fresh start. Plan your tasks! 🚀
           </span>
         : hasOverdue ?
-          <span className="text-rose-400 font-medium flex items-center gap-1.5 animate-pulse">
+          <span className="flex items-center gap-1.5 break-words font-medium leading-relaxed text-rose-400 animate-pulse">
             ⚠️ You have overdue tasks! It is time to sort them out 📉
           </span>
-        : <span className="text-slate-400 font-medium">Overall progress</span>}
+        : <span className="font-medium text-slate-400">Overall progress</span>}
 
         <span
-          className={`font-bold self-end sm:self-auto ${
+          className={`self-start font-bold sm:self-auto ${
             progressPercentage === 100 ? "text-amber-400" : "text-emerald-400"
           }`}
         >
@@ -56,7 +56,7 @@ export default function ProgressSection() {
         </span>
       </div>
 
-      <div className="w-full h-2 bg-slate-950 rounded-full overflow-hidden border border-slate-800/40">
+      <div className="h-2.5 w-full overflow-hidden rounded-full border border-slate-800/40 bg-slate-950">
         <div
           className={`h-full bg-gradient-to-r transition-all duration-500 ${
             progressPercentage === 100 ?

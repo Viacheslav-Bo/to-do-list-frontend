@@ -56,7 +56,7 @@ export default function Navigation() {
 
   return (
     <section>
-      <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+      <h2 className="mb-3 text-[clamp(0.7rem,1.8vw,0.75rem)] font-semibold uppercase tracking-wider text-slate-500">
         Navigation
       </h2>
 
@@ -67,7 +67,7 @@ export default function Navigation() {
             <button
               key={item.id}
               onClick={() => setView(item.id)}
-              className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition-all ${
+              className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-[clamp(0.8rem,2.2vw,0.875rem)] transition-all sm:gap-3 sm:px-3 ${
                 view === item.id ? activeClass : idleClass
               }`}
             >
@@ -78,7 +78,7 @@ export default function Navigation() {
                 }
               />
 
-              <div className="flex flex-1 items-center justify-between gap-3">
+              <div className="flex flex-1 items-center justify-between gap-2 sm:gap-3">
                 <span>{item.label}</span>
                 <CountBadge value={item.count} />
               </div>

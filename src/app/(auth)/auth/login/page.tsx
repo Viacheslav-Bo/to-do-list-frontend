@@ -32,12 +32,14 @@ export default function SignIn() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0B0F19] flex justify-center pt-32 p-6">
+    <main className="flex min-h-screen justify-center bg-[#0B0F19] px-3 py-20 sm:px-6 sm:py-24 lg:px-8">
       <form
         action={handleSubmit}
-        className="w-full max-w-sm h-fit flex flex-col gap-4 p-6 bg-slate-700/40 border border-slate-800 rounded-xl shadow-sm"
+        className="flex h-fit w-full max-w-sm flex-col gap-4 rounded-xl border border-slate-800 bg-slate-700/40 p-4 shadow-sm sm:p-6"
       >
-        <h1 className="text-xl font-semibold text-slate-100 mb-2">Sign in</h1>
+        <h1 className="mb-2 text-[clamp(1.1rem,2.8vw,1.25rem)] font-semibold text-slate-100">
+          Sign in
+        </h1>
 
         <Input id="email" name="email" type="email" label="Email" required />
         <Input
@@ -58,7 +60,7 @@ export default function SignIn() {
           </p>
         )}
 
-        <p className="text-sm text-slate-500 text-center">
+        <p className="text-center text-[clamp(0.8rem,2.2vw,0.875rem)] text-slate-500">
           Don&apos;t have an account?{" "}
           <a href="/auth/register" className="text-blue-400 hover:underline">
             Sign up
