@@ -3,7 +3,7 @@
 A modern task management application built with **Next.js**, **Express**, and **MongoDB**. Organize tasks with priorities, deadlines, categories, private visibility, and an interactive dashboard designed to keep productivity on track.
 
 <p align="center">
-  <img src="./screenshots/dashboard.jpg" alt="Just To Do It Dashboard" width="100%" />
+  <img src="./screenshots/dashboard.png" alt="Just To Do It Dashboard" width="100%" />
 </p>
 
 **🌐 Live Demo:** [Just To Do It](https://to-do-list-frontend-dusky.vercel.app)  
