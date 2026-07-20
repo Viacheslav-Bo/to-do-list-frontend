@@ -8,8 +8,11 @@ import { useAuthStore } from "@/lib/store/authStore";
 import Button from "@/components/ui/Button/Button";
 import Input from "@/components/ui/Input/Input";
 import toast from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
+import Link from "next/link";
 
 export default function SignIn() {
+  const queryClient = useQueryClient();
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
@@ -30,6 +33,7 @@ export default function SignIn() {
     setIsSubmitting(true);
     try {
       const user = await login(formValues);
+      queryClient.clear();
       setUser(user);
       toast.success(`Welcome back, ${user.name ?? user.email}`);
       router.push("/tasks");
@@ -72,9 +76,9 @@ export default function SignIn() {
 
         <p className="text-center text-[clamp(0.8rem,2.2vw,0.875rem)] text-[var(--color-text-muted)]">
           Don&apos;t have an account?{" "}
-          <a href="/auth/register" className="text-blue-400 hover:underline">
+          <Link href="/auth/register" className="text-blue-400 hover:underline">
             Sign up
-          </a>
+          </Link>
         </p>
       </form>
     </main>

@@ -16,11 +16,13 @@ export default function RequireAuth({
 
   useEffect(() => {
     if (!isChecking && !user) {
-      router.push("/auth/login");
+      router.replace("/auth/login");
     }
   }, [isChecking, user, router]);
 
-  if (isChecking) return <Spinner />;
-  if (!user) return null;
+  if (isChecking || !user) {
+    return <Spinner />;
+  }
+
   return <>{children}</>;
 }

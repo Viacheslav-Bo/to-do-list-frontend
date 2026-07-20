@@ -1,36 +1,177 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Just To Do It ⚡
 
-## Getting Started
+A modern task management application built with **Next.js**, **Express**, and **MongoDB**. Organize tasks with priorities, deadlines, categories, private visibility, and an interactive dashboard designed to keep productivity on track.
 
-First, run the development server:
+**🌐 Live Demo:** [Just To Do It](https://to-do-list-frontend-dusky.vercel.app)  
+**📦 Frontend Repository:** [to-do-list-frontend](https://github.com/Viacheslav-Bo/to-do-list-frontend)  
+**🔗 Backend Repository:** [to-do-list-backend](https://github.com/Viacheslav-Bo/to-do-list-backend)
+
+---
+
+# ✨ Features
+
+## Core Features
+
+- User authentication with JWT stored in **httpOnly cookies**
+- Create, edit, delete, and complete tasks
+- Search tasks by title (debounced)
+- Sort tasks by priority, creation date, or deadline (ascending/descending)
+- Filter by status, category, due today, and private tasks
+- Priority levels (1–10) with color-coded badges
+
+## Advanced Features
+
+- Private tasks that are fully hidden and non-interactive when Privacy Mode is enabled
+- Custom-built category selector with no external dependency, and a styled date picker (react-day-picker) with a hand-rolled dropdown trigger instead of a UI library popover
+- Infinite pagination with **Load More**
+- Dashboard with progress overview, upcoming deadlines, and active task statistics
+- Light and dark themes with persistent user preference
+- Password visibility toggle
+- Toast notifications for key user actions
+- Global loading and error handling
+- Fully responsive layout (320px mobile to 4K displays)
+- Secure authentication configured for both local development and production deployments
+- End-to-end testing with Playwright
+
+---
+
+# 🛠 Tech Stack
+
+| Category                  | Technology                                    |
+| ------------------------- | --------------------------------------------- |
+| **Frontend**              | Next.js 16 (App Router), React 19, TypeScript |
+| **Styling**               | Tailwind CSS v4                               |
+| **Data Fetching**         | TanStack React Query v5                       |
+| **State Management**      | Zustand                                       |
+| **HTTP Client**           | Axios                                         |
+| **Forms & Notifications** | react-hot-toast                               |
+| **Date Handling**         | react-day-picker, date-fns                    |
+| **Icons**                 | lucide-react                                  |
+| **Testing**               | Playwright                                    |
+
+**Backend:** Node.js, Express, MongoDB (see the separate backend repository).
+
+---
+
+# 🚀 Getting Started
+
+## Prerequisites
+
+- Node.js 20+
+- Running backend API (locally or deployed)
+
+## Installation
+
+```bash
+git clone <repository-url>
+cd to-do-list-frontend
+npm install
+```
+
+## Environment Variables
+
+Create a `.env.local` file in the project root:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3000
+```
+
+Set the value to your backend API URL.
+
+## Run the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3001
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Production Build
 
-## Learn More
+```bash
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# 🧪 Running Tests
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Playwright tests run against the local development environment.
 
-## Deploy on Vercel
+Start the backend:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+docker compose up
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Run the test suite:
+
+```bash
+npx playwright test
+```
+
+Run tests in headed mode:
+
+```bash
+npx playwright test --headed
+```
+
+See the [`e2e`](./e2e) directory for the test suite.
+
+---
+
+# 📜 Available Scripts
+
+| Command               | Description                  |
+| --------------------- | ---------------------------- |
+| `npm run dev`         | Start the development server |
+| `npm run build`       | Create a production build    |
+| `npm run start`       | Start the production server  |
+| `npm run lint`        | Run ESLint                   |
+| `npx playwright test` | Execute the E2E test suite   |
+
+---
+
+# ☁️ Deployment
+
+- **Frontend:** [Vercel](https://to-do-list-frontend-dusky.vercel.app)
+- **Backend:** [Render](https://to-do-list-backend-3-nwmt.onrender.com)
+
+Before deploying, configure the `NEXT_PUBLIC_API_URL` environment variable in Vercel. Since Next.js embeds `NEXT_PUBLIC_*` variables during the build process, updating the value later requires a new deployment.
+
+---
+
+# 📁 Project Structure
+
+```
+src/
+├── app/                  # App Router pages and layouts
+├── components/
+│   ├── Auth/
+│   ├── Tasks/
+│   ├── layout/
+│   └── ui/
+├── hooks/
+│   └── tasks/
+├── lib/
+│   ├── api/
+│   └── store/
+├── types/
+└── utils/
+
+e2e/                      # Playwright end-to-end tests
+```
+
+---
+
+# 👤 Author
+
+**Viacheslav Bo**
+
+- GitHub: https://github.com/Viacheslav-Bo
+- LinkedIn: https://linkedin.com/in/viacheslav-bobivnyk

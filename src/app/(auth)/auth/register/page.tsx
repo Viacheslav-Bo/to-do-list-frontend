@@ -1,5 +1,6 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { register, RegisterRequest } from "@/lib/api/clientApi";
@@ -8,8 +9,10 @@ import { useAuthStore } from "@/lib/store/authStore";
 import Button from "@/components/ui/Button/Button";
 import Input from "@/components/ui/Input/Input";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 const SignUp = () => {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -43,6 +46,7 @@ const SignUp = () => {
     setIsSubmitting(true);
     try {
       const user = await register(formValues);
+      queryClient.clear();
       setUser(user);
       toast.success(`Account created — welcome, ${user.name ?? user.email}!`);
       router.push("/tasks");
@@ -94,9 +98,9 @@ const SignUp = () => {
 
         <p className="text-center text-[clamp(0.8rem,2.2vw,0.875rem)] text-[var(--color-text-muted)]">
           Already have an account?{" "}
-          <a href="/auth/login" className="text-blue-400 hover:underline">
+          <Link href="/auth/login" className="text-blue-400 hover:underline">
             Log in
-          </a>
+          </Link>
         </p>
       </form>
     </main>
