@@ -2,9 +2,15 @@
 
 A modern task management application built with **Next.js**, **Express**, and **MongoDB**. Organize tasks with priorities, deadlines, categories, private visibility, and an interactive dashboard designed to keep productivity on track.
 
+<p align="center">
+  <img src="./screenshots/dashboard.jpg" alt="Just To Do It Dashboard" width="100%" />
+</p>
+
 **🌐 Live Demo:** [Just To Do It](https://to-do-list-frontend-dusky.vercel.app)  
 **📦 Frontend Repository:** [to-do-list-frontend](https://github.com/Viacheslav-Bo/to-do-list-frontend)  
-**🔗 Backend Repository:** [to-do-list-backend](https://github.com/Viacheslav-Bo/to-do-list-backend)
+**🔗 Backend Repository:** Node.js, Express, TypeScript, MongoDB, Mongoose, JWT Authentication  
+See the separate backend repository:
+[to-do-list-backend](https://github.com/Viacheslav-Bo/to-do-list-backend)
 
 ---
 
@@ -139,32 +145,79 @@ See the [`e2e`](./e2e) directory for the test suite.
 
 # ☁️ Deployment
 
-- **Frontend:** [Vercel](https://to-do-list-frontend-dusky.vercel.app)
-- **Backend:** [Render](https://to-do-list-backend-3-nwmt.onrender.com)
+- **Frontend Hosting:** Vercel  
+  Demo: https://to-do-list-frontend-dusky.vercel.app
+
+- **Backend Hosting:** Render  
+  API: https://to-do-list-backend-3-nwmt.onrender.com
 
 Before deploying, configure the `NEXT_PUBLIC_API_URL` environment variable in Vercel. Since Next.js embeds `NEXT_PUBLIC_*` variables during the build process, updating the value later requires a new deployment.
 
 ---
 
-# 📁 Project Structure
+## 📂 Project Structure
 
-```
-src/
-├── app/                  # App Router pages and layouts
-├── components/
-│   ├── Auth/
-│   ├── Tasks/
-│   ├── layout/
-│   └── ui/
-├── hooks/
-│   └── tasks/
-├── lib/
-│   ├── api/
-│   └── store/
-├── types/
-└── utils/
-
-e2e/                      # Playwright end-to-end tests
+```text
+src
+├── app
+│   ├── (auth)
+│   │   ├── auth
+│   │   │   ├── login
+│   │   │   ├── register
+│   │   │   └── logout
+│   │   └── layout.tsx
+│   │
+│   ├── (dashboard)
+│   │   ├── tasks
+│   │   └── layout.tsx
+│   │
+│   ├── layout.tsx
+│   ├── loading.tsx
+│   ├── error.tsx
+│   ├── not-found.tsx
+│   └── page.tsx
+│
+├── components
+│   ├── layout
+│   │   ├── Header
+│   │   ├── Footer
+│   │   ├── Navigation
+│   │   ├── SideBar
+│   │   ├── BurgerMenu
+│   │   ├── MiniProfile
+│   │   └── PrivacyToggle
+│   │
+│   ├── Tasks
+│   │   ├── TaskForm
+│   │   ├── TaskItem
+│   │   ├── TasksList
+│   │   ├── TasksToolbar
+│   │   ├── ProgressSection
+│   │   ├── PriorityBreakdown
+│   │   └── UpcomingDeadlines
+│   │
+│   ├── ui
+│   │   ├── Button
+│   │   ├── Input
+│   │   ├── Modal
+│   │   ├── Spinner
+│   │   ├── DatePicker
+│   │   └── Textarea
+│   │
+│   ├── Categories
+│   ├── Filters
+│   └── providers
+│
+├── hooks
+│   └── tasks
+│
+├── lib
+│   ├── api
+│   └── store
+│
+├── constants
+├── types
+└── globals.css
 ```
 
 ---
@@ -172,6 +225,8 @@ e2e/                      # Playwright end-to-end tests
 # 👤 Author
 
 **Viacheslav Bo**
+
+Full Stack Developer
 
 - GitHub: https://github.com/Viacheslav-Bo
 - LinkedIn: https://linkedin.com/in/viacheslav-bobivnyk
