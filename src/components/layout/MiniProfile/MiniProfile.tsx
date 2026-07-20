@@ -24,7 +24,7 @@ export default function MiniProfile() {
 
   return (
     <div className="flex items-center gap-3 pt-3">
-      <div className="min-w-0 flex-1 text-center">
+      <div className="min-w-0 flex-1 text-center mb-8">
         <p
           className="truncate text-[clamp(0.8rem,2.2vw,0.875rem)] text-[var(--color-text-primary)]"
           title={displayName}
@@ -34,7 +34,7 @@ export default function MiniProfile() {
         <Button
           variant="ghost"
           onClick={handleLogout}
-          className="mt-2 w-full border border-rose-500/20 text-rose-400 hover:border-rose-500/40 hover:bg-rose-500/10"
+          className="mt-3 w-full border border-rose-500/20 text-rose-400 hover:border-rose-500/40 hover:bg-rose-500/10"
         >
           Log out
           <LogOut size={16} />

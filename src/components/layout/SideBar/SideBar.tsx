@@ -20,7 +20,7 @@ export default function Sidebar() {
         <PriorityBreakdown />
       </div>
 
-      <div className="mt-auto">
+      <div className="mt-auto mb-3">
         <MiniProfile />
       </div>
     </aside>
