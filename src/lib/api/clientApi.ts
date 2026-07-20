@@ -13,9 +13,8 @@ type LoginResponse = {
 };
 
 export const login = async (payload: LoginRequest): Promise<User> => {
-  const res = await nextServer.post<LoginResponse>("/auth/login", payload);
-  const { id, email } = res.data.data.user;
-  return { _id: id, email } as User;
+  await nextServer.post<LoginResponse>("/auth/login", payload);
+  return getMe();
 };
 
 export type RegisterRequest = {
