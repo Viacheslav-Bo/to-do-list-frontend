@@ -194,7 +194,7 @@ hover:shadow-md relative flex h-full flex-col gap-2.5 rounded-xl border bg-[var(
           />
 
           <h3
-            className={`flex-1 break-words text-[clamp(0.875rem,2.2vw,0.95rem)] font-medium ${
+            className={`min-w-0 flex-1 break-words text-[clamp(0.875rem,2.2vw,0.95rem)] font-medium ${
               task.isCompleted ?
                 "line-through text-[var(--color-text-muted)]"
               : "text-[var(--color-text-primary)]"
