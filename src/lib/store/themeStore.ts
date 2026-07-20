@@ -48,10 +48,18 @@ export const useThemeStore = create<ThemeStore>((set) => ({
   toggleTheme: () => {
     set((state) => {
       const nextTheme = state.theme === "dark" ? "light" : "dark";
-      applyTheme(nextTheme);
-      if (typeof window !== "undefined") {
+
+      const update = () => {
+        applyTheme(nextTheme);
         window.localStorage.setItem("theme", nextTheme);
+      };
+
+      if ("startViewTransition" in document) {
+        document.startViewTransition(update);
+      } else {
+        update();
       }
+
       return { theme: nextTheme };
     });
   },
