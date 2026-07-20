@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import confetti from "canvas-confetti";
 import type { SortBy, SortOrder } from "@/types/task";
-import { useTasksQuery } from "@/hooks/tasks/useTasksQuery";
+import { useTasksInfiniteQuery } from "@/hooks/tasks/useInfiniteQuery";
 import { TASK_CATEGORIES } from "@/constants/categories";
 import {
   useUpdateTask,
@@ -12,7 +12,7 @@ import {
 } from "@/hooks/tasks/useTaskMutations";
 import TasksToolbar from "@/components/Tasks/TasksToolbar/TasksToolbar";
 import TasksList from "@/components/Tasks/TasksList/TasksList";
-import TasksPagination from "@/components/Tasks/TasksPagination/TasksPagination";
+import LoadMore from "@/components/Tasks/LoadMore/LoadMore";
 import CategoriesList from "@/components/Categories/CategoriesList";
 import ProgressSection from "@/components/Tasks/ProgressSection/ProgressSection";
 import { useTasksViewStore } from "@/lib/store/tasksViewStore";
@@ -24,12 +24,14 @@ import {
   Shield,
 } from "lucide-react";
 import Spinner from "@/components/ui/Spinner/Spinner";
+import { useQueryClient } from "@tanstack/react-query";
+import { taskKeys } from "@/hooks/tasks/queryKeys";
 
 export default function TasksPage() {
+  const queryClient = useQueryClient();
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState<SortBy>("priority");
   const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
-  const [page, setPage] = useState(1);
   const { view, setView, selectedCategory, setCategory } = useTasksViewStore();
 
   const isCompletedParam =
@@ -37,8 +39,14 @@ export default function TasksPage() {
     : view === "active" || view === "today" ? false
     : undefined;
 
-  const { data, isLoading, isError } = useTasksQuery({
-    page,
+  const {
+    data,
+    isLoading,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useTasksInfiniteQuery({
     search: search || undefined,
     isCompleted: isCompletedParam,
     isPrivate: view === "private" ? true : undefined,
@@ -52,13 +60,7 @@ export default function TasksPage() {
   const deleteTask = useDeleteTask();
   const toggleComplete = useToggleTaskComplete();
 
-  const tasks = data?.items ?? [];
-  const totalPages = data?.totalPages ?? 1;
-
-  useEffect(() => {
-    const frame = window.requestAnimationFrame(() => setPage(1));
-    return () => window.cancelAnimationFrame(frame);
-  }, [search, isCompletedParam, selectedCategory, sortBy, sortOrder, view]);
+  const tasks = data?.pages.flatMap((page) => page.items) ?? [];
 
   const handleToggleComplete = (task: {
     _id: string;
@@ -81,7 +83,7 @@ export default function TasksPage() {
     setSortBy("priority");
     setSortOrder("desc");
     setView("all");
-    setPage(1);
+    queryClient.resetQueries({ queryKey: taskKeys.all });
   };
 
   const pageTitleConfig = {
@@ -97,7 +99,7 @@ export default function TasksPage() {
   }[view];
 
   return (
-    <section className="mx-auto flex max-w-5xl flex-col gap-4 px-3 py-6 sm:gap-5 sm:px-4 sm:py-8 lg:px-5 lg:py-10 3xl:max-w-6xl">
+    <section className="mx-auto flex max-w-5xl flex-col gap-4 px-3 py-6 sm:gap-5 sm:px-4 sm:py-8 lg:px-5 lg:py-5 3xl:max-w-6xl">
       <h1 className="flex items-center gap-2 text-[clamp(1.25rem,3vw,1.5rem)] font-bold text-[var(--color-text-primary)]">
         <pageTitleConfig.icon size={24} className={pageTitleConfig.color} />
         {pageTitleConfig.label}
@@ -141,10 +143,10 @@ export default function TasksPage() {
         />
       }
 
-      <TasksPagination
-        page={page}
-        totalPages={totalPages}
-        onPageChange={setPage}
+      <LoadMore
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+        onLoadMore={() => fetchNextPage()}
       />
     </section>
   );

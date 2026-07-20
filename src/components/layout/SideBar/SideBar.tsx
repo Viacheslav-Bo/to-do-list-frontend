@@ -7,7 +7,7 @@ import Navigation from "@/components/layout/Navigation/Navigation";
 
 export default function Sidebar() {
   return (
-    <aside className="fixed bottom-0 left-0 top-20 hidden w-64 shrink-0 flex-col gap-8 overflow-y-auto border-r border-[var(--color-border)] bg-[var(--color-surface)] p-5 lg:flex">
+    <aside className="fixed bottom-0 left-0 top-16 hidden w-64 shrink-0 flex-col gap-8 overflow-y-auto border-r border-[var(--color-border)] bg-[var(--color-surface)] p-5 lg:flex">
       <div className="mb-8">
         <Navigation />
       </div>

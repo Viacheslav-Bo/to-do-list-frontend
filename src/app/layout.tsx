@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/layout/Header/Header";
+import Footer from "@/components/layout/Footer/Footer";
 import AuthHydrator from "@/components/providers/AuthHydrator";
 import QueryProvider from "@/components/providers/QueryProvider";
 import ThemeInitializer from "@/components/providers/ThemeInitializer";
@@ -46,20 +47,7 @@ export default function RootLayout({
           />
           <Header />
           <main className="flex-1 overflow-y-auto pt-16">{children}</main>
-          <footer className="py-4 text-center text-xs text-[var(--color-text-secondary)]">
-            <p className="flex items-center justify-center gap-1">
-              Created by{" "}
-              <a
-                href="https://github.com/Viacheslav-Bo"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 transition hover:text-[var(--color-text-primary)] hover:underline"
-              >
-                Viacheslav Bo
-              </a>{" "}
-              <time dateTime="2026">2026</time>
-            </p>
-          </footer>
+           <Footer />
         </QueryProvider>
       </body>
     </html>
