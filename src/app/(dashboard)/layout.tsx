@@ -1,4 +1,5 @@
 import Sidebar from "@/components/layout/SideBar/SideBar";
+import RequireAuth from "@/components/providers/RequireAuth";
 
 export default function DashboardLayout({
   children,
@@ -6,9 +7,11 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex">
-      <Sidebar />
-      <div className="min-w-0 flex-1 lg:pl-64">{children}</div>
-    </div>
+    <RequireAuth>
+      <div className="flex">
+        <Sidebar />
+        <div className="min-w-0 flex-1 lg:pl-64">{children}</div>
+      </div>
+    </RequireAuth>
   );
 }
