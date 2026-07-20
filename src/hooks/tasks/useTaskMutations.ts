@@ -1,4 +1,8 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQueryClient,
+  type InfiniteData,
+} from "@tanstack/react-query";
 import { createTask, updateTask, deleteTask } from "@/lib/api/tasks";
 import type {
   CreateTaskPayload,
@@ -63,19 +67,23 @@ export function useToggleTaskComplete() {
     onMutate: async ({ taskId, isCompleted }) => {
       await queryClient.cancelQueries({ queryKey: taskKeys.all });
 
-      const previousLists = queryClient.getQueriesData<PaginatedTasks>({
+      const previousLists = queryClient.getQueriesData<InfiniteData<PaginatedTasks>>({
         queryKey: ["tasks", "list"],
       });
 
-      queryClient.setQueriesData<PaginatedTasks>(
+      queryClient.setQueriesData<InfiniteData<PaginatedTasks>>(
         { queryKey: ["tasks", "list"] },
         (old) => {
           if (!old) return old;
+
           return {
             ...old,
-            items: old.items.map((t) =>
-              t._id === taskId ? { ...t, isCompleted } : t,
-            ),
+            pages: old.pages.map((page) => ({
+              ...page,
+              items: page.items.map((task) =>
+                task._id === taskId ? { ...task, isCompleted } : task,
+              ),
+            })),
           };
         },
       );
@@ -84,8 +92,8 @@ export function useToggleTaskComplete() {
     },
 
     onError: (_err, _vars, context) => {
-      context?.previousLists?.forEach(([key, data]) => {
-        queryClient.setQueryData(key, data);
+      context?.previousLists?.forEach(([queryKey, data]) => {
+        queryClient.setQueryData(queryKey, data);
       });
     },
 
