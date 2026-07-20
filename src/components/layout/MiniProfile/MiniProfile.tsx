@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
 import { logout } from "@/lib/api/clientApi";
 import Button from "@/components/ui/Button/Button";
@@ -8,17 +7,14 @@ import { LogOut } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function MiniProfile() {
-  const router = useRouter();
   const user = useAuthStore((state) => state.user);
-  const clearIsAuth = useAuthStore((state) => state.clearIsAuth);
 
   const handleLogout = async () => {
     try {
       await logout();
       toast.success("Logged out");
     } finally {
-      clearIsAuth();
-      router.push("/");
+      window.location.href = "/";
     }
   };
 
