@@ -20,7 +20,7 @@ const TasksList = ({ tasks, onToggleComplete, onUpdate, onDelete }: Props) => {
   return (
     <ul className="space-y-3 sm:space-y-4 md:space-y-0 md:grid md:grid-cols-2 md:gap-4 md:items-stretch 3xl:grid-cols-3">
       {tasks.map((task) => (
-        <li key={task._id} className="md:h-full">
+        <li key={task._id} className="md:h-full ">
           <TaskItem
             task={task}
             onToggleComplete={onToggleComplete}

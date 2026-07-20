@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { SortBy, SortOrder } from "@/types/task";
-
+import { FIELD_CLASSNAME } from "@/constants/inputs";
 import { ArrowUp, ArrowDown, RotateCcw } from "lucide-react";
 
 type Props = {
@@ -45,12 +45,27 @@ export default function FilterBar({
   };
 
   return (
-    <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-2.5 sm:p-3">
+    <div
+      className="
+flex
+flex-col
+gap-2
+rounded-2xl
+border
+border-[var(--color-border)]
+bg-[var(--color-surface)]
+p-3
+shadow-sm
+sm:flex-row
+sm:flex-wrap
+sm:items-center
+"
+    >
       <input
         value={localSearch}
         onChange={(e) => handleSearchInput(e.target.value)}
         placeholder="Search by title..."
-        className="w-full sm:min-w-[120px] sm:flex-1 rounded border border-[var(--color-border)] bg-[var(--color-surface-solid)] px-3 py-2 text-[clamp(0.8rem,2.2vw,0.875rem)] text-[var(--color-text-primary)] focus:border-blue-500 focus:outline-none"
+        className={`${FIELD_CLASSNAME} sm:min-w-[180px] sm:flex-1`}
       />
       <div className="flex flex-wrap items-center gap-2">
         {(
@@ -70,20 +85,35 @@ export default function FilterBar({
                   onSortOrderChange(sortOrder === "asc" ? "desc" : "asc");
                 } else {
                   onSortByChange(option.value);
-                  onSortOrderChange("desc");
+                  onSortOrderChange(
+                    option.value === "dueDate" ? "asc" : "desc",
+                  );
                 }
               }}
-              className={`flex h-9 shrink-0 items-center gap-1 rounded border px-3 text-[clamp(0.75rem,2vw,0.8rem)] cursor-pointer ${
-                isActive ?
-                  "border-blue-500/40 bg-blue-500/10 text-blue-300"
-                : "border-[var(--color-border)] bg-[var(--color-surface-solid)] text-[var(--color-text-secondary)] hover:border-[var(--color-border-strong)]"
-              }`}
+              className={`
+flex
+h-10
+items-center
+gap-1.5
+rounded-xl
+border
+px-3.5
+text-[clamp(0.75rem,2vw,0.85rem)]
+font-medium
+transition-all
+cursor-pointer
+${
+  isActive ?
+    "border-sky-400/40 bg-sky-500/10 text-sky-300"
+  : "border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-secondary)] hover:border-[var(--color-border-strong)] hover:text-[var(--color-text-primary)]"
+}
+`}
             >
               {option.label}
               {isActive &&
                 (sortOrder === "asc" ?
-                  <ArrowUp size={14} />
-                : <ArrowDown size={14} />)}
+                  <ArrowUp size={15} strokeWidth={2.2} />
+                : <ArrowDown size={15} strokeWidth={2.2} />)}
             </button>
           );
         })}
@@ -92,7 +122,23 @@ export default function FilterBar({
           type="button"
           onClick={onReset}
           title="Reset all filters to default values"
-          className="ml-auto flex h-9 w-9 shrink-0 items-center justify-center rounded text-[var(--color-text-muted)] hover:bg-[var(--color-surface)] hover:text-rose-400 cursor-pointer"
+          className="
+flex
+h-10
+w-10
+items-center
+justify-center
+rounded-xl
+border
+border-[var(--color-border)]
+bg-[var(--color-surface)]
+text-[var(--color-text-muted)]
+transition-all
+hover:border-rose-500/30
+hover:bg-rose-500/10
+hover:text-rose-400
+cursor-pointer
+"
         >
           <RotateCcw size={16} />
         </button>

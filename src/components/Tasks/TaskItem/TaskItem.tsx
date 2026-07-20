@@ -144,7 +144,9 @@ export default function TaskItem({
 
   return (
     <div
-      className={`relative flex h-full flex-col gap-2.5 rounded-xl border bg-[var(--color-surface)] p-3 backdrop-blur-md transition-all duration-300 sm:gap-3 sm:p-4 ${
+      className={`shadow-sm
+hover:shadow-md
+transition-all relative flex h-full flex-col gap-2.5 rounded-xl border bg-[var(--color-surface)] p-3 backdrop-blur-md transition-all duration-300 sm:gap-3 sm:p-4 ${
         task.isCompleted ? "opacity-50" : ""
       } ${isLocked ? "border-amber-500/20" : "border-[var(--color-border)]"}`}
     >
@@ -222,6 +224,7 @@ export default function TaskItem({
         <p className="mb-4 whitespace-pre-wrap break-words text-[clamp(0.8rem,2.4vw,0.875rem)] text-[var(--color-text-secondary)]">
           {task.description}
         </p>
+
         <div className="flex justify-end">
           <Button variant="secondary" onClick={openEdit}>
             Edit

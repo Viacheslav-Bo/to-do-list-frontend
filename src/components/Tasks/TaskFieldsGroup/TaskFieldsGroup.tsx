@@ -2,8 +2,8 @@
 
 import CategorySelect from "@/components/Tasks/CategorySelect/CategorySelect";
 import PrioritySelect from "@/components/Tasks/PrioritySelect/PrioritySelect";
-import Input from "@/components/ui/Input/Input";
 import { FIELD_LABEL_CLASSNAME } from "@/constants/inputs";
+import DatePicker from "@/components/ui/DatePicker/DatePicker";
 
 type Props = {
   idPrefix?: string;
@@ -45,12 +45,10 @@ export default function TaskFieldsGroup({
           />
         </div>
 
-        <Input
-          id={`${idPrefix}-due-date`}
-          type="date"
-          label="Deadline"
+        <DatePicker
           value={dueDate}
-          onChange={(e) => onDueDateChange(e.target.value)}
+          onChange={onDueDateChange}
+          label="Deadline"
         />
       </div>
 

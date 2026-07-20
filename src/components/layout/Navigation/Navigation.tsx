@@ -12,7 +12,18 @@ import {
 
 function CountBadge({ value }: { value?: number }) {
   return (
-    <span className="flex h-5 w-8 shrink-0 items-center justify-center rounded-full bg-[var(--color-surface-solid)] text-[11px] font-medium text-[var(--color-text-secondary)]">
+    <span
+      className="
+flex h-5 w-8 shrink-0
+items-center justify-center
+rounded-full
+bg-[var(--color-surface-solid)]
+text-[11px]
+font-medium
+text-[var(--color-text-secondary)]
+transition-colors
+"
+    >
       {value ?? "..."}
     </span>
   );
@@ -24,9 +35,10 @@ export default function Navigation() {
   const { data: stats } = useTaskStats();
 
   const activeClass =
-    "bg-[var(--color-surface-solid)] text-[var(--color-text-primary)]";
+    "border border-[var(--color-active-border)] bg-[var(--color-active-bg)] text-[var(--color-text-primary)]";
+
   const idleClass =
-    "text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)] hover:text-[var(--color-text-primary)]";
+    "border border-transparent text-[var(--color-text-secondary)] hover:bg-[var(--color-hover)] hover:text-[var(--color-text-primary)]";
 
   const navItems = [
     {
@@ -78,7 +90,7 @@ export default function Navigation() {
             <button
               key={item.id}
               onClick={() => setView(item.id)}
-              className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-[clamp(0.8rem,2.2vw,0.875rem)] transition-all sm:gap-3 sm:px-3 ${
+              className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-[clamp(0.8rem,2.2vw,0.875rem)] transition-colors duration-150 sm:gap-3 sm:px-3 ${
                 view === item.id ? activeClass : idleClass
               }`}
             >

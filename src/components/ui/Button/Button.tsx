@@ -22,7 +22,23 @@ export default function Button({
 }: Props) {
   return (
     <button
-      className={`rounded-lg px-4 py-2 text-[clamp(0.8rem,2.2vw,0.875rem)] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer ${variantClasses[variant]} ${className}`}
+      className={`
+        inline-flex
+        items-center
+        justify-center
+        gap-2
+        rounded-lg
+        px-4
+        py-2
+        text-[clamp(0.8rem,2.2vw,0.875rem)]
+        font-semibold
+        transition-colors
+        cursor-pointer
+        disabled:cursor-not-allowed
+        disabled:opacity-50
+        ${variantClasses[variant]}
+        ${className}
+      `}
       {...rest}
     />
   );

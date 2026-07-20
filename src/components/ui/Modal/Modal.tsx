@@ -39,11 +39,11 @@ export default function Modal({ isOpen, onClose, title, children }: Props) {
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-3 py-4 backdrop-blur-sm sm:px-4"
+      className=" fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-3 py-4 backdrop-blur-sm sm:px-4"
       onClick={onClose}
     >
       <div
-        className="relative max-h-[90vh] w-full max-w-md overflow-visible rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-xl sm:p-6"
+        className=" relative max-h-[90vh] w-full max-w-md overflow-visible rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-xl sm:p-6"
         onClick={(e) => e.stopPropagation()}
       >
         <button

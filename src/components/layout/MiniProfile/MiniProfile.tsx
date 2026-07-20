@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
 import { logout } from "@/lib/api/clientApi";
 import Button from "@/components/ui/Button/Button";
+import { LogOut } from "lucide-react";
 
 export default function MiniProfile() {
   const router = useRouter();
@@ -33,11 +34,12 @@ export default function MiniProfile() {
           {displayName}
         </p>
         <Button
-          variant="secondary"
+          variant="ghost"
           onClick={handleLogout}
-          className="mt-2 w-full text-[clamp(0.8rem,2.2vw,0.875rem)]"
+          className="mt-2 w-full border border-rose-500/20 text-rose-400 hover:border-rose-500/40 hover:bg-rose-500/10"
         >
           Log out
+          <LogOut size={16} />
         </Button>
       </div>
     </div>

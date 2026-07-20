@@ -11,27 +11,44 @@ html {
 :root {
   --background: #0b0f19;
   --foreground: #e2e8f0;
+
   --color-bg: #0b0f19;
-  --color-surface: rgba(15, 23, 42, 0.72);
-  --color-surface-solid: #020617;
-  --color-border: rgba(30, 41, 59, 0.95);
-  --color-border-strong: rgba(51, 65, 85, 0.95);
+  --color-active-bg: #2b3648;
+  --color-active-border: #42536d;
+
+  --color-surface: #111827;
+  --color-surface-solid: #162032;
+
+  --color-border: #243244;
+  --color-border-strong: #334155;
+
   --color-text-primary: #f8fafc;
   --color-text-secondary: #94a3b8;
   --color-text-muted: #64748b;
+
+  --color-hover: rgba(51, 65, 85, 0.35);
 }
 
 :root.light {
-  --background: #eef1f6;
+  --background: #eef2f7;
   --foreground: #1e293b;
-  --color-bg: #eef1f6;
-  --color-surface: rgba(248, 250, 252, 0.85);
-  --color-surface-solid: #f8fafc;
-  --color-border: rgba(203, 213, 225, 0.8);
-  --color-border-strong: rgba(148, 163, 184, 0.8);
+
+  --color-bg: #eef2f7;
+  --color-active-bg: #dce5f1;
+  --color-active-border: #c2cfdf;
+
+  --color-surface: #ffffff;
+
+  --color-surface-solid: #f1f5f9;
+
+  --color-border: #dbe4ef;
+  --color-border-strong: #c2cedd;
+
   --color-text-primary: #1e293b;
   --color-text-secondary: #475569;
   --color-text-muted: #64748b;
+
+  --color-hover: rgba(148, 163, 184, 0.18);
 }
 
 input:-webkit-autofill,
@@ -49,5 +66,4 @@ body {
   color: var(--color-text-primary);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   min-height: 100vh;
-  padding-top: 80px;
 }
