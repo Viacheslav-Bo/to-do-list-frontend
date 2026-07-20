@@ -73,7 +73,7 @@ export default function TaskFieldsGroup({
         className={`mx-auto my-3 flex items-center gap-2 rounded-lg border px-3 py-2 text-[clamp(0.8rem,2.2vw,0.875rem)] font-medium transition sm:my-4 sm:px-4
     ${
       isPrivate ?
-        "border-yellow-500 bg-yellow-500/10 text-yellow-400"
+        "border-[var(--private-border)] bg-[var(--private-bg)] text-[var(--private-text)]"
       : "border-[var(--color-border)] bg-[var(--color-surface-solid)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
     }`}
       >
