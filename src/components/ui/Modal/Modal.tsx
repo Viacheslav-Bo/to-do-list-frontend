@@ -50,7 +50,7 @@ export default function Modal({ isOpen, onClose, title, children }: Props) {
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-lg text-[var(--color-text-secondary)] transition-colors hover:bg-[var(--color-surface-solid)] hover:text-[var(--color-text-primary)]"
+          className="cursor-pointer absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-lg text-[var(--color-text-secondary)] transition-colors hover:bg-[var(--color-surface-solid)] hover:text-[var(--color-text-primary)]"
         >
           <X size={18} strokeWidth={2} />
         </button>

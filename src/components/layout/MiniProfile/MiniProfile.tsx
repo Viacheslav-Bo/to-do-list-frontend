@@ -23,7 +23,7 @@ export default function MiniProfile() {
   const displayName = user.name?.trim() || user.email;
 
   return (
-    <div className="flex items-center gap-3 border-t border-[var(--color-border)] pt-3">
+    <div className="flex items-center gap-3 pt-3">
       <div className="min-w-0 flex-1 text-center">
         <p
           className="truncate text-[clamp(0.8rem,2.2vw,0.875rem)] text-[var(--color-text-primary)]"

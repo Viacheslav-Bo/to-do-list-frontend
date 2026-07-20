@@ -4,6 +4,7 @@ import CategorySelect from "@/components/Tasks/CategorySelect/CategorySelect";
 import PrioritySelect from "@/components/Tasks/PrioritySelect/PrioritySelect";
 import { FIELD_LABEL_CLASSNAME } from "@/constants/inputs";
 import DatePicker from "@/components/ui/DatePicker/DatePicker";
+import { Shield } from "lucide-react";
 
 type Props = {
   idPrefix?: string;
@@ -30,7 +31,7 @@ export default function TaskFieldsGroup({
 }: Props) {
   return (
     <>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
         <div className="flex flex-col gap-1.5">
           <label
             htmlFor={`${idPrefix}-category`}
@@ -66,14 +67,19 @@ export default function TaskFieldsGroup({
         />
       </div>
 
-      <label className="flex items-center gap-2 cursor-pointer border-t border-[var(--color-border)] pt-3 text-[clamp(0.8rem,2.2vw,0.875rem)] text-[var(--color-text-secondary)]">
-        <input
-          type="checkbox"
-          checked={isPrivate}
-          onChange={(e) => onIsPrivateChange(e.target.checked)}
-        />
-        Private
-      </label>
+      <button
+        type="button"
+        onClick={() => onIsPrivateChange(!isPrivate)}
+        className={`mx-auto my-3 flex items-center gap-2 rounded-lg border px-3 py-2 text-[clamp(0.8rem,2.2vw,0.875rem)] font-medium transition sm:my-4 sm:px-4
+    ${
+      isPrivate ?
+        "border-yellow-500 bg-yellow-500/10 text-yellow-400"
+      : "border-[var(--color-border)] bg-[var(--color-surface-solid)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+    }`}
+      >
+        <Shield size={16} className="shrink-0" />
+        {isPrivate ? "Private" : "Public"}
+      </button>
     </>
   );
 }

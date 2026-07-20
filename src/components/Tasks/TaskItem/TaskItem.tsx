@@ -282,7 +282,7 @@ hover:shadow-md relative flex h-full flex-col gap-2.5 rounded-xl border bg-[var(
             </p>
           )}
 
-          <div className="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-wrap gap-2 items-center justify-between">
             <Button
               variant="danger"
               onClick={() => {
@@ -293,7 +293,7 @@ hover:shadow-md relative flex h-full flex-col gap-2.5 rounded-xl border bg-[var(
               Delete
             </Button>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex gap-2">
               <Button variant="secondary" onClick={closeModal}>
                 Cancel
               </Button>

@@ -41,7 +41,7 @@ export default function DatePicker({ value, onChange, label }: Props) {
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className={`${FIELD_CLASSNAME} flex items-center justify-between text-left`}
+        className={`${FIELD_CLASSNAME} cursor-pointer flex items-center justify-between text-left`}
       >
         {selected ? format(selected, "dd.MM.yyyy") : "Select date"}
         <Calendar size={16} className="text-[var(--color-text-muted)]" />

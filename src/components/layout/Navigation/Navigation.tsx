@@ -90,7 +90,7 @@ export default function Navigation() {
             <button
               key={item.id}
               onClick={() => setView(item.id)}
-              className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-[clamp(0.8rem,2.2vw,0.875rem)] transition-colors duration-150 sm:gap-3 sm:px-3 ${
+              className={`cursor-pointer flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-[clamp(0.8rem,2.2vw,0.875rem)] transition-colors duration-150 sm:gap-3 sm:px-3 ${
                 view === item.id ? activeClass : idleClass
               }`}
             >

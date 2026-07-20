@@ -37,7 +37,7 @@ export default function CategorySelect({ value, onChange, id }: Props) {
         id={id}
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className={`${FIELD_CLASSNAME} flex items-center justify-between text-left`}
+        className={`${FIELD_CLASSNAME} cursor-pointer flex items-center justify-between text-left`}
       >
         {value}
         <ChevronDown

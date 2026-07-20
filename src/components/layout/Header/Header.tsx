@@ -30,7 +30,7 @@ const Header = () => {
           type="button"
           onClick={toggleTheme}
           aria-label="Toggle theme"
-          className="flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-secondary)] transition hover:border-[var(--color-border-strong)] hover:text-[var(--color-text-primary)]"
+          className="cursor-pointer flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-secondary)] transition hover:border-[var(--color-border-strong)] hover:text-[var(--color-text-primary)]"
         >
           {theme === "dark" ?
             <Sun size={16} />
