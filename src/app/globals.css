@@ -4,7 +4,7 @@
   --breakpoint-3xl: 1920px;
 }
 
-html {
+main {
   scrollbar-gutter: stable;
 }
 

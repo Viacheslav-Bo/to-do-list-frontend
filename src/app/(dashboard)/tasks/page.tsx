@@ -99,7 +99,7 @@ export default function TasksPage() {
   }[view];
 
   return (
-    <section className="mx-auto flex max-w-5xl flex-col gap-4 px-3 py-6 sm:gap-5 sm:px-4 sm:py-8 lg:px-5 lg:py-5 3xl:max-w-6xl">
+    <section className="mx-auto flex max-w-5xl flex-col gap-4 overflow-x-hidden px-3 py-6 sm:gap-5 sm:px-4 sm:py-8 lg:px-5 lg:py-5 3xl:max-w-6xl">
       <h1 className="flex items-center gap-2 text-[clamp(1.25rem,3vw,1.5rem)] font-bold text-[var(--color-text-primary)]">
         <pageTitleConfig.icon size={24} className={pageTitleConfig.color} />
         {pageTitleConfig.label}
