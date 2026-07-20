@@ -7,6 +7,7 @@ import { getErrorMessage } from "@/types/apiError";
 import { useAuthStore } from "@/lib/store/authStore";
 import Button from "@/components/ui/Button/Button";
 import Input from "@/components/ui/Input/Input";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const router = useRouter();
@@ -14,15 +15,36 @@ const SignUp = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const setUser = useAuthStore((state) => state.setUser);
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setError("");
+
+    const formData = new FormData(e.currentTarget);
+    const formValues = Object.fromEntries(
+      formData,
+    ) as unknown as RegisterRequest;
+
+    if (!formValues.name || formValues.name.length < 2) {
+      setError("Name must be at least 2 characters");
+      return;
+    }
+    if (
+      !formValues.email ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formValues.email)
+    ) {
+      setError("Please enter a valid email");
+      return;
+    }
+    if (!formValues.password || formValues.password.length < 6) {
+      setError("Password must be at least 6 characters");
+      return;
+    }
+
     setIsSubmitting(true);
     try {
-      const formValues = Object.fromEntries(
-        formData,
-      ) as unknown as RegisterRequest;
       const user = await register(formValues);
       setUser(user);
+      toast.success(`Account created — welcome, ${user.name ?? user.email}!`);
       router.push("/tasks");
     } catch (err) {
       setError(getErrorMessage(err, "Registration failed."));
@@ -34,7 +56,8 @@ const SignUp = () => {
   return (
     <main className="flex min-h-screen justify-center bg-[var(--color-bg)] px-3 py-20 sm:px-6 sm:py-24 lg:px-8">
       <form
-        action={handleSubmit}
+        onSubmit={handleSubmit}
+        noValidate
         className="flex h-fit w-full max-w-sm flex-col gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-sm sm:p-6"
       >
         <h1 className="mb-2 text-[clamp(1.1rem,2.8vw,1.25rem)] font-semibold text-[var(--color-text-primary)]">

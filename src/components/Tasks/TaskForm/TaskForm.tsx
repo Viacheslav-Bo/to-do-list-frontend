@@ -6,6 +6,7 @@ import Input from "@/components/ui/Input/Input";
 import Button from "@/components/ui/Button/Button";
 import TaskFieldsGroup from "@/components/Tasks/TaskFieldsGroup/TaskFieldsGroup";
 import Textarea from "@/components/ui/Textarea/Textarea";
+import { getErrorMessage } from "@/types/apiError";
 
 type Props = {
   onCreate: (payload: CreateTaskPayload) => Promise<void>;
@@ -49,8 +50,10 @@ export default function TaskForm({ onCreate }: Props) {
       setPriority(5);
       setDueDate("");
       setIsPrivate(false);
-    } catch {
-      setError("Failed to create task. Please try again.");
+    } catch (err) {
+      setError(
+        getErrorMessage(err, "Failed to create task. Please try again."),
+      );
     } finally {
       setIsSubmitting(false);
     }

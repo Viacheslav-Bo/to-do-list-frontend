@@ -12,6 +12,7 @@ import PriorityBadge from "@/components/ui/Badges/PriorityBadge";
 import StatusBadge from "@/components/ui/Badges/StatusBadge";
 import CategoryBadge from "@/components/ui/Badges/CategoryBadge";
 import Textarea from "@/components/ui/Textarea/Textarea";
+import { getErrorMessage } from "@/types/apiError";
 
 import { Shield, MoreVertical } from "lucide-react";
 
@@ -112,12 +113,19 @@ export default function TaskItem({
 
   const openEdit = () => {
     resetEditFields();
+    setError("");
     setModalMode("edit");
   };
 
-  const closeModal = () => setModalMode(null);
+  const closeModal = () => {
+    setError("");
+    setModalMode(null);
+  };
+
+  const [error, setError] = useState("");
 
   const handleSave = async () => {
+    setError("");
     setIsSaving(true);
     try {
       await onUpdate(task._id, {
@@ -129,6 +137,10 @@ export default function TaskItem({
         ...(editDueDate ? { dueDate: editDueDate } : {}),
       });
       closeModal();
+    } catch (err) {
+      setError(
+        getErrorMessage(err, "Failed to update task. Please try again."),
+      );
     } finally {
       setIsSaving(false);
     }
@@ -147,8 +159,7 @@ export default function TaskItem({
   return (
     <div
       className={`shadow-sm
-hover:shadow-md
-transition-all relative flex h-full flex-col gap-2.5 rounded-xl border bg-[var(--color-surface)] p-3 backdrop-blur-md transition-all duration-300 sm:gap-3 sm:p-4 ${
+hover:shadow-md relative flex h-full flex-col gap-2.5 rounded-xl border bg-[var(--color-surface)] p-3 backdrop-blur-md transition-all duration-300 sm:gap-3 sm:p-4 ${
         task.isCompleted ? "opacity-50" : ""
       } ${isLocked ? "border-amber-500/20" : "border-[var(--color-border)]"}`}
     >
@@ -264,6 +275,12 @@ transition-all relative flex h-full flex-col gap-2.5 rounded-xl border bg-[var(-
             isPrivate={editIsPrivate}
             onIsPrivateChange={setEditIsPrivate}
           />
+
+          {error && (
+            <p className="rounded border border-rose-500/20 bg-rose-500/10 p-2 text-[clamp(0.8rem,2.2vw,0.875rem)] text-rose-400">
+              {error}
+            </p>
+          )}
 
           <div className="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-between">
             <Button

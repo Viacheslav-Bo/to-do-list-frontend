@@ -6,6 +6,8 @@ import type {
   PaginatedTasks,
 } from "@/types/task";
 import { taskKeys } from "./queryKeys";
+import toast from "react-hot-toast";
+import { getErrorMessage } from "@/types/apiError";
 
 export function useCreateTask() {
   const queryClient = useQueryClient();
@@ -13,6 +15,7 @@ export function useCreateTask() {
     mutationFn: (payload: CreateTaskPayload) => createTask(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: taskKeys.all });
+      toast.success("Task created");
     },
   });
 }
@@ -29,6 +32,7 @@ export function useUpdateTask() {
     }) => updateTask(taskId, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: taskKeys.all });
+      toast.success("Task updated");
     },
   });
 }
@@ -39,7 +43,9 @@ export function useDeleteTask() {
     mutationFn: (taskId: string) => deleteTask(taskId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: taskKeys.all });
+      toast.success("Task deleted");
     },
+    onError: () => toast.error("Failed to delete task"),
   });
 }
 

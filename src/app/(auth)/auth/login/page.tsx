@@ -7,6 +7,7 @@ import { getErrorMessage } from "@/types/apiError";
 import { useAuthStore } from "@/lib/store/authStore";
 import Button from "@/components/ui/Button/Button";
 import Input from "@/components/ui/Input/Input";
+import toast from "react-hot-toast";
 
 export default function SignIn() {
   const [error, setError] = useState("");
@@ -14,15 +15,23 @@ export default function SignIn() {
   const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setError("");
+
+    const formData = new FormData(e.currentTarget);
+    const formValues = Object.fromEntries(formData) as unknown as LoginRequest;
+
+    if (!formValues.email || !formValues.password) {
+      setError("Please fill in both fields");
+      return;
+    }
+
     setIsSubmitting(true);
     try {
-      const formValues = Object.fromEntries(
-        formData,
-      ) as unknown as LoginRequest;
       const user = await login(formValues);
       setUser(user);
+      toast.success(`Welcome back, ${user.name ?? user.email}`);
       router.push("/tasks");
     } catch (err) {
       setError(getErrorMessage(err, "Invalid email or password"));
@@ -34,7 +43,8 @@ export default function SignIn() {
   return (
     <main className="flex min-h-screen justify-center bg-[var(--color-bg)] px-3 py-20 sm:px-6 sm:py-24 lg:px-8">
       <form
-        action={handleSubmit}
+        onSubmit={handleSubmit}
+        noValidate
         className="flex h-fit w-full max-w-sm flex-col gap-4 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 shadow-sm sm:p-6"
       >
         <h1 className="mb-2 text-[clamp(1.1rem,2.8vw,1.25rem)] font-semibold text-[var(--color-text-primary)]">
