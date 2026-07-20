@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, keepPreviousData } from "@tanstack/react-query";
 import { getTasks } from "@/lib/api/tasks";
 import type { GetTasksParams } from "@/types/task";
 import { taskKeys } from "./queryKeys";
@@ -10,5 +10,6 @@ export function useTasksInfiniteQuery(params: Omit<GetTasksParams, "page">) {
     initialPageParam: 1,
     getNextPageParam: (lastPage) =>
       lastPage.hasNextPage ? lastPage.page + 1 : undefined,
+    placeholderData: keepPreviousData,
   });
 }
