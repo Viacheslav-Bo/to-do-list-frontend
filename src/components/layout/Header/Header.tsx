@@ -13,7 +13,7 @@ const Header = () => {
   const toggleTheme = useThemeStore((state) => state.toggleTheme);
 
   return (
-    <header className="fixed top-0 left-0 z-40 flex h-16 w-full items-center justify-between gap-2 border-b border-[var(--color-border)] bg-[var(--color-surface)] px-3 shadow-[0_2px_12px_rgba(15,23,42,0.06)] backdrop-blur-md sm:gap-4 sm:px-4 md:px-6">
+    <header className="fixed top-0 left-0 z-40 flex h-16 w-full items-center justify-between gap-2 border-b border-[var(--color-border)] bg-[var(--color-surface-solid)] px-3 shadow-[0_2px_12px_rgba(15,23,42,0.06)] backdrop-blur-md sm:gap-4 sm:px-4 md:px-6">
       <Link href="/" aria-label="Home" className="min-w-0">
         <h1 className="text-[clamp(1rem,3.2vw,1.5rem)] font-black tracking-tight text-[var(--color-text-primary)]">
           Just{" "}

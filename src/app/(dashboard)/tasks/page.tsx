@@ -23,6 +23,7 @@ import {
   CheckCircle2,
   Shield,
 } from "lucide-react";
+import Spinner from "@/components/ui/Spinner/Spinner";
 
 export default function TasksPage() {
   const [search, setSearch] = useState("");
@@ -127,9 +128,7 @@ export default function TasksPage() {
       )}
 
       {isLoading && tasks.length === 0 ?
-        <div className="flex items-center justify-center py-16">
-          <div className="w-8 h-8 rounded-full border-2 border-[var(--color-border)] border-t-blue-500 animate-spin" />
-        </div>
+        <Spinner />
       : <TasksList
           tasks={tasks}
           onToggleComplete={handleToggleComplete}

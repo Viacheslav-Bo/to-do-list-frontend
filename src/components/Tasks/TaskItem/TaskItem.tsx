@@ -38,7 +38,7 @@ function getDueDateStatus(
   if (!dueDateStr) {
     return {
       label: "No date",
-      color: "text-sky-400 bg-sky-500/10 border-sky-500/20",
+      color: "text-indigo-300 bg-indigo-500/10 border-indigo-500/20",
     };
   }
 
@@ -62,10 +62,12 @@ function getDueDateStatus(
       color: "text-amber-400 bg-amber-500/10 border-amber-500/20",
     };
   }
+
+  const label = diffDays >= 7 ? `${Math.round(diffDays / 7)}w` : `${diffDays}d`;
+
   return {
-    label: `${diffDays} d`,
-    color:
-      "text-[var(--color-text-secondary)] bg-[var(--color-surface)] border-[var(--color-border-strong)]",
+    label,
+    color: "text-blue-400 bg-blue-500/10 border-blue-500/20",
   };
 }
 
