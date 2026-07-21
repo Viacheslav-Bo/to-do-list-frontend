@@ -17,8 +17,8 @@ export default function Home() {
         It ⚡
       </h1>
       <p className="max-w-md text-[clamp(0.875rem,2.2vw,1rem)] text-[var(--color-text-secondary)]">
-        A simple fast task manager: search, priorities, filters, and deadlines —
-        everything you need, nothing extra.
+        A fast and intuitive task manager with priorities, deadlines, smart
+        filters, and privacy controls — everything you need to stay organized.
       </p>
 
       <Link href={user ? "/tasks" : "/auth/register"}>

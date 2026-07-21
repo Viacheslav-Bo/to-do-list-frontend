@@ -33,6 +33,7 @@ export default function Button({
         text-[clamp(0.8rem,2.2vw,0.875rem)]
         font-semibold
         transition-colors
+        duration-300
         cursor-pointer
         disabled:cursor-not-allowed
         disabled:opacity-50

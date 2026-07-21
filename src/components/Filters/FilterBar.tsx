@@ -64,7 +64,7 @@ sm:items-center
       <input
         value={localSearch}
         onChange={(e) => handleSearchInput(e.target.value)}
-        placeholder="Search by title..."
+        placeholder="Search by keyword..."
         className={`${FIELD_CLASSNAME} sm:min-w-[180px] sm:flex-1`}
       />
       <div className="flex flex-wrap items-center gap-2">

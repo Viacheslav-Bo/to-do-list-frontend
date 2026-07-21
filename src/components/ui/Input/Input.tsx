@@ -38,7 +38,7 @@ export default function Input({
             type="button"
             onClick={() => setIsRevealed((prev) => !prev)}
             tabIndex={-1}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
+            className=" transition-colors duration-300 cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)]"
             aria-label={isRevealed ? "Hide password" : "Show password"}
           >
             {isRevealed ?
