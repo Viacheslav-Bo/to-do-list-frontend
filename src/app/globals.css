@@ -13,8 +13,11 @@ main {
   --foreground: #e2e8f0;
 
   --color-bg: #0b0f19;
+  --color-hover: rgba(255, 255, 255, 0.06);
+
   --color-active-bg: #2b3648;
   --color-active-border: #42536d;
+
 
   --color-surface: #111827;
   --color-surface-solid: #162032;
