@@ -177,7 +177,16 @@ hover:shadow-md relative flex h-full flex-col gap-2.5 rounded-xl border bg-[var(
 
           <button
             onClick={openEdit}
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded text-[var(--color-text-secondary)] transition hover:bg-[var(--color-surface-solid)] hover:text-[var(--color-text-primary)] sm:h-7 sm:w-7"
+            className="
+  cursor-pointer
+  flex h-8 w-8 shrink-0 items-center justify-center
+  rounded-md
+  text-[var(--color-text-secondary)]
+  transition-colors duration-200
+  hover:bg-[var(--color-surface-solid)]
+  hover:text-[var(--color-text-primary)]
+  sm:h-7 sm:w-7
+"
             aria-label="Edit task"
             title="Edit task"
           >
