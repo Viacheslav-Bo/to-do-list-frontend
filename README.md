@@ -6,7 +6,17 @@ A modern task management application built with **Next.js**, **Express**, and **
   <img src="./screenshots/dashboard.png" alt="Just To Do It Dashboard" width="100%" />
 </p>
 
-**🌐 Live Demo:** [Just To Do It](https://to-do-list-frontend-dusky.vercel.app)  
+**🌐 Live Demo:** [Just To Do It](https://to-do-list-frontend-dusky.vercel.app)
+
+## 🔐 Demo Account
+
+You can use the following credentials to explore the application:
+
+**Email:** demo@example.com  
+**Password:** 12345678
+
+The demo account already contains sample tasks to showcase filtering, sorting, priorities, dashboard statistics, and other features.
+
 **📦 Frontend Repository:** [to-do-list-frontend](https://github.com/Viacheslav-Bo/to-do-list-frontend)  
 **🔗 Backend Repository:** Node.js, Express, TypeScript, MongoDB, Mongoose, JWT Authentication  
 See the separate backend repository:
